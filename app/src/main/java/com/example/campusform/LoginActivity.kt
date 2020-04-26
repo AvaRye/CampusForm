@@ -1,5 +1,6 @@
 package com.example.campusform
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import kotlinx.android.synthetic.main.activity_login.*
@@ -11,12 +12,15 @@ class LoginActivity : AppCompatActivity() {
         setContentView(R.layout.activity_login)
 
         tv_login.setOnClickListener {
-            login(et_username.text.toString(), et_password.text.toString())
+            if (login(et_username.text.toString(), et_password.text.toString())) {
+                startActivity(Intent(this, HomeActivity::class.java))
+                finish()
+            }
         }
 
     }
 
-    private fun login(username: String, password: String) {
-
+    private fun login(username: String, password: String): Boolean {
+        return true
     }
 }
