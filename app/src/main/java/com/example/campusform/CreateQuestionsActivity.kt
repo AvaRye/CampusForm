@@ -4,8 +4,6 @@ import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import android.widget.LinearLayout
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.activity_new.*
@@ -39,7 +37,7 @@ class CreateQuestionsActivity : AppCompatActivity() {
             ) {
                 type = when (position) {
                     0 -> QuestionAdapter.Companion.QuestionType.SINGLE_QUESTION
-                    1 -> QuestionAdapter.Companion.QuestionType.MULTY_QUESTION
+                    1 -> QuestionAdapter.Companion.QuestionType.MULTI_QUESTION
                     2 -> QuestionAdapter.Companion.QuestionType.TEXT_QUESTION
                     3 -> QuestionAdapter.Companion.QuestionType.TEN_QUESTION
                     4 -> QuestionAdapter.Companion.QuestionType.HUND_QUESTION

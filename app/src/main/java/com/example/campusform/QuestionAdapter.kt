@@ -4,8 +4,7 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.CheckBox
-import android.widget.LinearLayout
+import android.widget.*
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.item_new_questions_single_select.view.*
 import kotlinx.android.synthetic.main.layout_question_item.view.*
@@ -14,12 +13,46 @@ open class QuestionViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView
 class SingleViewHolder(itemView: View, val cb: CheckBox, val questionContainer: LinearLayout) :
     QuestionViewHolder(itemView)
 
+class MutliViewHolder(
+    itemView: View,
+    val cb: CheckBox,
+    val questionContainer: LinearLayout,
+    val setting: ImageView
+) : QuestionViewHolder(itemView)
+
+class TextViewHolder(itemView: View, val cb: CheckBox, val qNum: Int, val qTitle: TextView) :
+    QuestionViewHolder(itemView)
+
+class TenViewHolder(
+    itemView: View,
+    val cb: CheckBox,
+    val qNum: Int,
+    val qTitle: TextView,
+    val etLow: EditText,
+    val etHigh: EditText,
+    val radioGroup: RadioGroup
+) : QuestionViewHolder(itemView)
+
+class HundViewHolder(
+    itemView: View,
+    val cb: CheckBox,
+    val etLow: EditText,
+    val etHigh: EditText,
+    val seekBar: SeekBar
+) : QuestionViewHolder(itemView)
+
+class SortViewHolder(
+    itemView: View,
+    val cb: CheckBox,
+    val questionContainer: LinearLayout
+) : QuestionViewHolder(itemView)
+
 class QuestionAdapter(private val context: Context, private val typeList: ArrayList<QuestionType>) :
     RecyclerView.Adapter<QuestionViewHolder>() {
     companion object {
         enum class QuestionType {
             SINGLE_QUESTION,
-            MULTY_QUESTION,
+            MULTI_QUESTION,
             TEXT_QUESTION,
             TEN_QUESTION,
             HUND_QUESTION,
@@ -38,7 +71,7 @@ class QuestionAdapter(private val context: Context, private val typeList: ArrayL
                 return SingleViewHolder(
                     view,
                     view.cb_item_single_select,
-                    view.ll_question_container
+                    view.ll_questions_single_container
                 )
             }
             1 -> {//多选题
@@ -60,7 +93,7 @@ class QuestionAdapter(private val context: Context, private val typeList: ArrayL
         val view = LayoutInflater
             .from(parent.context)
             .inflate(R.layout.item_new_questions_single_select, parent, false)
-        return SingleViewHolder(view, view.cb_item_single_select, view.ll_question_container)
+        return SingleViewHolder(view, view.cb_item_single_select, view.ll_questions_single_container)
     }
 
     override fun getItemCount(): Int {
@@ -90,7 +123,7 @@ class QuestionAdapter(private val context: Context, private val typeList: ArrayL
     override fun getItemViewType(position: Int): Int {
         return when (typeList[position]) {
             QuestionType.SINGLE_QUESTION -> 0
-            QuestionType.MULTY_QUESTION -> 1
+            QuestionType.MULTI_QUESTION -> 1
             QuestionType.TEXT_QUESTION -> 2
             QuestionType.TEN_QUESTION -> 3
             QuestionType.HUND_QUESTION -> 4
@@ -103,7 +136,7 @@ class QuestionAdapter(private val context: Context, private val typeList: ArrayL
         notifyItemInserted(typeList.size - 1)
     }
 
-//    fun delete(){
+    //    fun delete(){
 //        for(position in selectedQuestions){
 //            deleteQuestion(position)
 //        }

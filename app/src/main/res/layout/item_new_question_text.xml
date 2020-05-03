@@ -16,17 +16,25 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
-        <LinearLayout
-            android:id="@+id/ll_questions_single_container"
+        <TextView
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:id="@+id/tv_question_number"
+            android:textSize="18sp"
+            android:text="1."
+            android:layout_width="24dp"
+            android:layout_height="24dp"/>
+        <EditText
+            android:padding="8dp"
+            android:id="@+id/et_question_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toEndOf="@id/iv_question_add"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginStart="10dp"
+            android:background="@drawable/edit_background"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <include layout="@layout/layout_question_item" />
-
-            <include layout="@layout/layout_question_item" />
-
-        </LinearLayout>
+            android:layout_marginLeft="10dp" />
     </LinearLayout>
 
 </androidx.cardview.widget.CardView>
