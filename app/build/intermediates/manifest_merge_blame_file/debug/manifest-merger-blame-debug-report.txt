@@ -11,7 +11,7 @@
 9-->D:\Project\CampusForm\app\src\main\AndroidManifest.xml
 10
 11    <application
-11-->D:\Project\CampusForm\app\src\main\AndroidManifest.xml:5:5-22:19
+11-->D:\Project\CampusForm\app\src\main\AndroidManifest.xml:5:5-24:19
 12        android:allowBackup="true"
 12-->D:\Project\CampusForm\app\src\main\AndroidManifest.xml:6:9-35
 13        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
@@ -28,29 +28,32 @@
 19        android:testOnly="true"
 20        android:theme="@style/AppThemeNoActionBar" >
 20-->D:\Project\CampusForm\app\src\main\AndroidManifest.xml:11:9-51
-21        <activity
-21-->D:\Project\CampusForm\app\src\main\AndroidManifest.xml:12:9-19:20
-22            android:name="com.example.campusform.LoginActivity"
-22-->D:\Project\CampusForm\app\src\main\AndroidManifest.xml:12:19-48
-23            android:theme="@style/AppTheme" >
-23-->D:\Project\CampusForm\app\src\main\AndroidManifest.xml:13:13-44
-24            <intent-filter>
-24-->D:\Project\CampusForm\app\src\main\AndroidManifest.xml:14:13-18:29
-25                <action android:name="android.intent.action.MAIN" />
-25-->D:\Project\CampusForm\app\src\main\AndroidManifest.xml:15:17-69
-25-->D:\Project\CampusForm\app\src\main\AndroidManifest.xml:15:25-66
-26
-27                <category android:name="android.intent.category.LAUNCHER" />
-27-->D:\Project\CampusForm\app\src\main\AndroidManifest.xml:17:17-77
-27-->D:\Project\CampusForm\app\src\main\AndroidManifest.xml:17:27-74
-28            </intent-filter>
-29        </activity>
-30        <activity android:name="com.example.campusform.HomeActivity" />
-30-->D:\Project\CampusForm\app\src\main\AndroidManifest.xml:20:9-49
-30-->D:\Project\CampusForm\app\src\main\AndroidManifest.xml:20:19-47
-31        <activity android:name="com.example.campusform.CreateActivity" />
-31-->D:\Project\CampusForm\app\src\main\AndroidManifest.xml:21:9-51
-31-->D:\Project\CampusForm\app\src\main\AndroidManifest.xml:21:19-49
-32    </application>
-33
-34</manifest>
+21        <activity android:name="com.example.campusform.ListActivity" />
+21-->D:\Project\CampusForm\app\src\main\AndroidManifest.xml:12:9-59
+21-->D:\Project\CampusForm\app\src\main\AndroidManifest.xml:12:19-47
+22        <activity
+22-->D:\Project\CampusForm\app\src\main\AndroidManifest.xml:13:9-21:20
+23            android:name="com.example.campusform.LoginActivity"
+23-->D:\Project\CampusForm\app\src\main\AndroidManifest.xml:14:13-42
+24            android:theme="@style/AppTheme" >
+24-->D:\Project\CampusForm\app\src\main\AndroidManifest.xml:15:13-44
+25            <intent-filter>
+25-->D:\Project\CampusForm\app\src\main\AndroidManifest.xml:16:13-20:29
+26                <action android:name="android.intent.action.MAIN" />
+26-->D:\Project\CampusForm\app\src\main\AndroidManifest.xml:17:17-69
+26-->D:\Project\CampusForm\app\src\main\AndroidManifest.xml:17:25-66
+27
+28                <category android:name="android.intent.category.LAUNCHER" />
+28-->D:\Project\CampusForm\app\src\main\AndroidManifest.xml:19:17-77
+28-->D:\Project\CampusForm\app\src\main\AndroidManifest.xml:19:27-74
+29            </intent-filter>
+30        </activity>
+31        <activity android:name="com.example.campusform.CreateQuestionsActivity" />
+31-->D:\Project\CampusForm\app\src\main\AndroidManifest.xml:22:9-60
+31-->D:\Project\CampusForm\app\src\main\AndroidManifest.xml:22:19-58
+32        <activity android:name="com.example.campusform.HomeActivity" />
+32-->D:\Project\CampusForm\app\src\main\AndroidManifest.xml:23:9-50
+32-->D:\Project\CampusForm\app\src\main\AndroidManifest.xml:23:19-47
+33    </application>
+34
+35</manifest>

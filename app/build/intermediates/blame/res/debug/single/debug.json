@@ -52,28 +52,28 @@
         "source": "D:\\Project\\CampusForm\\app\\build\\generated\\res\\pngs\\debug\\drawable-ldpi\\ic_launcher_background.png"
     },
     {
-        "merged": "D:\\Project\\CampusForm\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xhdpi_ic_launcher.png.flat",
-        "source": "D:\\Project\\CampusForm\\app\\src\\main\\res\\mipmap-xhdpi\\ic_launcher.png"
+        "merged": "D:\\Project\\CampusForm\\app\\build\\intermediates\\res\\merged\\debug\\drawable-v24_ic_pics.xml.flat",
+        "source": "D:\\Project\\CampusForm\\app\\src\\main\\res\\drawable-v24\\ic_pics.xml"
     },
     {
         "merged": "D:\\Project\\CampusForm\\app\\build\\intermediates\\res\\merged\\debug\\drawable-v24_back.xml.flat",
         "source": "D:\\Project\\CampusForm\\app\\src\\main\\res\\drawable-v24\\back.xml"
     },
     {
-        "merged": "D:\\Project\\CampusForm\\app\\build\\intermediates\\res\\merged\\debug\\drawable-v24_ic_pics.xml.flat",
-        "source": "D:\\Project\\CampusForm\\app\\src\\main\\res\\drawable-v24\\ic_pics.xml"
+        "merged": "D:\\Project\\CampusForm\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xhdpi_ic_launcher.png.flat",
+        "source": "D:\\Project\\CampusForm\\app\\src\\main\\res\\mipmap-xhdpi\\ic_launcher.png"
     },
     {
         "merged": "D:\\Project\\CampusForm\\app\\build\\intermediates\\res\\merged\\debug\\layout_activity_home.xml.flat",
         "source": "D:\\Project\\CampusForm\\app\\src\\main\\res\\layout\\activity_home.xml"
     },
     {
-        "merged": "D:\\Project\\CampusForm\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xxhdpi_ic_launcher_round.png.flat",
-        "source": "D:\\Project\\CampusForm\\app\\src\\main\\res\\mipmap-xxhdpi\\ic_launcher_round.png"
-    },
-    {
         "merged": "D:\\Project\\CampusForm\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi_home.png.flat",
         "source": "D:\\Project\\CampusForm\\app\\build\\generated\\res\\pngs\\debug\\drawable-mdpi\\home.png"
+    },
+    {
+        "merged": "D:\\Project\\CampusForm\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xxhdpi_ic_launcher_round.png.flat",
+        "source": "D:\\Project\\CampusForm\\app\\src\\main\\res\\mipmap-xxhdpi\\ic_launcher_round.png"
     },
     {
         "merged": "D:\\Project\\CampusForm\\app\\build\\intermediates\\res\\merged\\debug\\drawable_btn_background.xml.flat",
@@ -88,12 +88,20 @@
         "source": "D:\\Project\\CampusForm\\app\\src\\main\\res\\layout\\item_home.xml"
     },
     {
+        "merged": "D:\\Project\\CampusForm\\app\\build\\intermediates\\res\\merged\\debug\\layout_layout_question_item.xml.flat",
+        "source": "D:\\Project\\CampusForm\\app\\src\\main\\res\\layout\\layout_question_item.xml"
+    },
+    {
         "merged": "D:\\Project\\CampusForm\\app\\build\\intermediates\\res\\merged\\debug\\layout_activity_login.xml.flat",
         "source": "D:\\Project\\CampusForm\\app\\src\\main\\res\\layout\\activity_login.xml"
     },
     {
         "merged": "D:\\Project\\CampusForm\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-hdpi_ic_launcher_round.png.flat",
         "source": "D:\\Project\\CampusForm\\app\\src\\main\\res\\mipmap-hdpi\\ic_launcher_round.png"
+    },
+    {
+        "merged": "D:\\Project\\CampusForm\\app\\build\\intermediates\\res\\merged\\debug\\layout_activity_list.xml.flat",
+        "source": "D:\\Project\\CampusForm\\app\\src\\main\\res\\layout\\activity_list.xml"
     },
     {
         "merged": "D:\\Project\\CampusForm\\app\\build\\intermediates\\res\\merged\\debug\\drawable-v24_ic_sub.xml.flat",
@@ -116,20 +124,32 @@
         "source": "D:\\Project\\CampusForm\\app\\build\\generated\\res\\pngs\\debug\\drawable-anydpi-v21\\home.xml"
     },
     {
+        "merged": "D:\\Project\\CampusForm\\app\\build\\intermediates\\res\\merged\\debug\\layout_item_new_questions_single_select.xml.flat",
+        "source": "D:\\Project\\CampusForm\\app\\src\\main\\res\\layout\\item_new_questions_single_select.xml"
+    },
+    {
+        "merged": "D:\\Project\\CampusForm\\app\\build\\intermediates\\res\\merged\\debug\\layout_item_list_child.xml.flat",
+        "source": "D:\\Project\\CampusForm\\app\\src\\main\\res\\layout\\item_list_child.xml"
+    },
+    {
         "merged": "D:\\Project\\CampusForm\\app\\build\\intermediates\\res\\merged\\debug\\drawable-v24_ic_setting.xml.flat",
         "source": "D:\\Project\\CampusForm\\app\\src\\main\\res\\drawable-v24\\ic_setting.xml"
+    },
+    {
+        "merged": "D:\\Project\\CampusForm\\app\\build\\intermediates\\res\\merged\\debug\\layout_item_list_group.xml.flat",
+        "source": "D:\\Project\\CampusForm\\app\\src\\main\\res\\layout\\item_list_group.xml"
     },
     {
         "merged": "D:\\Project\\CampusForm\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi_home.png.flat",
         "source": "D:\\Project\\CampusForm\\app\\build\\generated\\res\\pngs\\debug\\drawable-hdpi\\home.png"
     },
     {
-        "merged": "D:\\Project\\CampusForm\\app\\build\\intermediates\\res\\merged\\debug\\drawable-anydpi-v21_ic_launcher_background.xml.flat",
-        "source": "D:\\Project\\CampusForm\\app\\build\\generated\\res\\pngs\\debug\\drawable-anydpi-v21\\ic_launcher_background.xml"
-    },
-    {
         "merged": "D:\\Project\\CampusForm\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi_home.png.flat",
         "source": "D:\\Project\\CampusForm\\app\\build\\generated\\res\\pngs\\debug\\drawable-xhdpi\\home.png"
+    },
+    {
+        "merged": "D:\\Project\\CampusForm\\app\\build\\intermediates\\res\\merged\\debug\\drawable-anydpi-v21_ic_launcher_background.xml.flat",
+        "source": "D:\\Project\\CampusForm\\app\\build\\generated\\res\\pngs\\debug\\drawable-anydpi-v21\\ic_launcher_background.xml"
     },
     {
         "merged": "D:\\Project\\CampusForm\\app\\build\\intermediates\\res\\merged\\debug\\layout_item_new_spinner.xml.flat",
@@ -156,11 +176,11 @@
         "source": "D:\\Project\\CampusForm\\app\\src\\main\\res\\drawable-v24\\ic_eye.xml"
     },
     {
-        "merged": "D:\\Project\\CampusForm\\app\\build\\intermediates\\res\\merged\\debug\\drawable-v24_ic_launcher_foreground.xml.flat",
-        "source": "D:\\Project\\CampusForm\\app\\src\\main\\res\\drawable-v24\\ic_launcher_foreground.xml"
-    },
-    {
         "merged": "D:\\Project\\CampusForm\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-mdpi_ic_launcher.png.flat",
         "source": "D:\\Project\\CampusForm\\app\\src\\main\\res\\mipmap-mdpi\\ic_launcher.png"
+    },
+    {
+        "merged": "D:\\Project\\CampusForm\\app\\build\\intermediates\\res\\merged\\debug\\drawable-v24_ic_launcher_foreground.xml.flat",
+        "source": "D:\\Project\\CampusForm\\app\\src\\main\\res\\drawable-v24\\ic_launcher_foreground.xml"
     }
 ]

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_margin="15dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    app:cardCornerRadius="8dp"
-    android:orientation="horizontal">
+    android:layout_margin="15dp"
+    android:orientation="horizontal"
+    app:cardCornerRadius="8dp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -16,12 +16,17 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:layout_marginStart="10dp"
-            android:id="@+id/rv_item_single_question_content"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:id="@+id/ll_question_container"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp" />
+            android:orientation="vertical">
+
+            <include layout="@layout/layout_question_item" />
+
+            <include layout="@layout/layout_question_item" />
+
+        </LinearLayout>
     </LinearLayout>
 
 </androidx.cardview.widget.CardView>

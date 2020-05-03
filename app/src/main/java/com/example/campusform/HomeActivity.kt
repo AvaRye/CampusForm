@@ -33,7 +33,7 @@ class HomeActivity:AppCompatActivity() {
         layout_item_question.setOnClickListener {
             //跳转问卷
             Toast.makeText(this,"问卷",Toast.LENGTH_SHORT).show()
-            startActivity(Intent(this,CreateActivity::class.java))
+            startActivity(Intent(this,CreateQuestionsActivity::class.java))
         }
     }
 }

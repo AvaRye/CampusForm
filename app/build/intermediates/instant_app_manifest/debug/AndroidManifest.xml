@@ -19,6 +19,7 @@
         android:supportsRtl="true"
         android:testOnly="true"
         android:theme="@style/AppThemeNoActionBar" >
+        <activity android:name="com.example.campusform.ListActivity" />
         <activity
             android:name="com.example.campusform.LoginActivity"
             android:theme="@style/AppTheme" >
@@ -28,8 +29,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name="com.example.campusform.CreateQuestionsActivity" />
         <activity android:name="com.example.campusform.HomeActivity" />
-        <activity android:name="com.example.campusform.CreateActivity" />
     </application>
 
 </manifest>
