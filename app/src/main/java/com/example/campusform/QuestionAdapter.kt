@@ -6,36 +6,45 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.recyclerview.widget.RecyclerView
+import kotlinx.android.synthetic.main.item_new_questions_hund.view.*
+import kotlinx.android.synthetic.main.item_new_questions_multi_select.view.*
 import kotlinx.android.synthetic.main.item_new_questions_single_select.view.*
+import kotlinx.android.synthetic.main.item_new_questions_sort.view.*
+import kotlinx.android.synthetic.main.item_new_questions_ten.view.*
+import kotlinx.android.synthetic.main.item_new_questions_text.view.*
 import kotlinx.android.synthetic.main.layout_question_item.view.*
+import kotlinx.android.synthetic.main.layout_question_item_sort.view.*
+import kotlinx.android.synthetic.main.layout_question_item_sort.view.et_question_content
 
 open class QuestionViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
 class SingleViewHolder(itemView: View, val cb: CheckBox, val questionContainer: LinearLayout) :
     QuestionViewHolder(itemView)
 
-class MutliViewHolder(
+class MultiViewHolder(
     itemView: View,
     val cb: CheckBox,
     val questionContainer: LinearLayout,
     val setting: ImageView
 ) : QuestionViewHolder(itemView)
 
-class TextViewHolder(itemView: View, val cb: CheckBox, val qNum: Int, val qTitle: TextView) :
+class TextViewHolder(itemView: View, val cb: CheckBox, val qNum: TextView, val qTitle: TextView) :
     QuestionViewHolder(itemView)
 
 class TenViewHolder(
     itemView: View,
     val cb: CheckBox,
-    val qNum: Int,
+    val qNum: TextView,
     val qTitle: TextView,
     val etLow: EditText,
     val etHigh: EditText,
     val radioGroup: RadioGroup
 ) : QuestionViewHolder(itemView)
 
-class HundViewHolder(
+class HundredViewHolder(
     itemView: View,
     val cb: CheckBox,
+    val qNum: TextView,
+    val qTitle: TextView,
     val etLow: EditText,
     val etHigh: EditText,
     val seekBar: SeekBar
@@ -75,25 +84,75 @@ class QuestionAdapter(private val context: Context, private val typeList: ArrayL
                 )
             }
             1 -> {//多选题
-
+                val view = LayoutInflater
+                    .from(parent.context)
+                    .inflate(R.layout.item_new_questions_multi_select, parent, false)
+                return MultiViewHolder(
+                    view,
+                    view.cb_item_multi_select,
+                    view.ll_questions_multi_container,
+                    view.iv_item_multi_setting
+                )
             }
             2 -> {//文本题
+                val view = LayoutInflater
+                    .from(parent.context)
+                    .inflate(R.layout.item_new_questions_text, parent, false)
+                return TextViewHolder(
+                    view,
+                    view.cb_item_text_select,
+                    view.tv_question_text_number,
+                    view.et_question_text_content
 
+                )
             }
             3 -> {//十分题
-
+                val view = LayoutInflater
+                    .from(parent.context)
+                    .inflate(R.layout.item_new_questions_ten, parent, false)
+                return TenViewHolder(
+                    view,
+                    view.cb_item_ten_select,
+                    view.tv_question_ten_number,
+                    view.et_question_ten_content,
+                    view.et_question_low_ten,
+                    view.et_question_high_ten,
+                    view.rg_question_ten
+                )
             }
             4 -> {//百分题
-
+                val view = LayoutInflater
+                    .from(parent.context)
+                    .inflate(R.layout.item_new_questions_hund, parent, false)
+                return HundredViewHolder(
+                    view,
+                    view.cb_item_hundred_select,
+                    view.tv_question_hundred_number,
+                    view.et_question_hundred_content,
+                    view.et_question_low_hundred,
+                    view.et_question_high_hundred,
+                    view.sb_question_hundred
+                )
             }
             5 -> {//排序题
-
+                val view = LayoutInflater
+                    .from(parent.context)
+                    .inflate(R.layout.item_new_questions_sort, parent, false)
+                return SortViewHolder(
+                    view,
+                    view.cb_item_sort_select,
+                    view.ll_questions_sort_container
+                )
             }
         }
         val view = LayoutInflater
             .from(parent.context)
             .inflate(R.layout.item_new_questions_single_select, parent, false)
-        return SingleViewHolder(view, view.cb_item_single_select, view.ll_questions_single_container)
+        return SingleViewHolder(
+            view,
+            view.cb_item_single_select,
+            view.ll_questions_single_container
+        )
     }
 
     override fun getItemCount(): Int {
