@@ -1,16 +1,12 @@
 package com.example.campusform
 
 import android.content.Context
-import android.os.strictmode.InstanceCountViolation
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.CheckBox
 import android.widget.LinearLayout
-import androidx.core.content.contentValuesOf
 import androidx.recyclerview.widget.RecyclerView
-import cn.edu.twt.retrox.recyclerviewdsl.Item
-import cn.edu.twt.retrox.recyclerviewdsl.ItemController
 import kotlinx.android.synthetic.main.item_new_questions_single_select.view.*
 import kotlinx.android.synthetic.main.layout_question_item.view.*
 
@@ -31,6 +27,7 @@ class QuestionAdapter(private val context: Context, private val typeList: ArrayL
         }
     }
 
+    private val selectedQuestions = ArrayList<Int>()
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): QuestionViewHolder {
         when (viewType) {
             0 -> {
@@ -72,15 +69,21 @@ class QuestionAdapter(private val context: Context, private val typeList: ArrayL
 
     override fun onBindViewHolder(holder: QuestionViewHolder, position: Int) {
         if (holder is SingleViewHolder) {
+            holder.cb.setOnCheckedChangeListener { _, isChecked ->
+                if (isChecked) {
+                    selectedQuestions.add(position)
+                } else {
+                    selectedQuestions.remove(position)
+                }
+            }
             holder.questionContainer.apply {
-                getChildAt(0).tv_question_number.text = "$position."
+                getChildAt(0).tv_question_number.text = "${position + 1}."
                 getChildAt(0).et_question_content.hint = "题目内容"
                 getChildAt(1).tv_question_number.text = "A."
                 getChildAt(1).et_question_content.hint = "选项内容"
 
-                this.addView(createChildView(this,2))
+                this.addView(createChildView(this, 2))
             }
-
         }
     }
 
@@ -100,9 +103,15 @@ class QuestionAdapter(private val context: Context, private val typeList: ArrayL
         notifyItemInserted(typeList.size - 1)
     }
 
-    fun deleteQuestion(position: Int) {
+//    fun delete(){
+//        for(position in selectedQuestions){
+//            deleteQuestion(position)
+//        }
+//        notifyDataSetChanged()
+//
+//    }
+    private fun deleteQuestion(position: Int) {
         typeList.removeAt(position)
-        notifyItemRemoved(position)
     }
 
     private fun createChildView(root: ViewGroup, position: Int): View {
@@ -112,7 +121,7 @@ class QuestionAdapter(private val context: Context, private val typeList: ArrayL
         view.iv_question_add.setOnClickListener {
             root.addView(createChildView(root, position + 1))
             it.visibility = View.INVISIBLE
-            view.tv_question_number.text = 'A'.plus(position-1)+"."
+            view.tv_question_number.text = 'A'.plus(position - 1) + "."
             view.tv_question_number.visibility = View.VISIBLE
             view.et_question_content.hint = "选项内容"
         }
