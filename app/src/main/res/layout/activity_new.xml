@@ -48,7 +48,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:layout_marginLeft="10dp"
-            android:text="投票名称"
+            android:text="问卷名称"
             android:textSize="18sp" />
 
         <EditText
@@ -66,11 +66,11 @@
 
     <EditText
         android:layout_width="match_parent"
-        android:layout_height="130dp"
+        android:layout_height="80dp"
         android:layout_margin="10dp"
         android:background="@drawable/edit_background"
         android:gravity="start"
-        android:hint="投票说明"
+        android:hint="问卷说明"
         android:padding="8dp" />
 
     <LinearLayout

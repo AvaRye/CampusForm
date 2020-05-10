@@ -6,14 +6,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.recyclerview.widget.RecyclerView
-import kotlinx.android.synthetic.main.item_new_questions_hund.view.*
+import kotlinx.android.synthetic.main.item_new_questions_hundred.view.*
 import kotlinx.android.synthetic.main.item_new_questions_multi_select.view.*
 import kotlinx.android.synthetic.main.item_new_questions_single_select.view.*
 import kotlinx.android.synthetic.main.item_new_questions_sort.view.*
 import kotlinx.android.synthetic.main.item_new_questions_ten.view.*
 import kotlinx.android.synthetic.main.item_new_questions_text.view.*
 import kotlinx.android.synthetic.main.layout_question_item.view.*
-import kotlinx.android.synthetic.main.layout_question_item_sort.view.*
 import kotlinx.android.synthetic.main.layout_question_item_sort.view.et_question_content
 
 open class QuestionViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
@@ -27,7 +26,7 @@ class MultiViewHolder(
     val setting: ImageView
 ) : QuestionViewHolder(itemView)
 
-class TextViewHolder(itemView: View, val cb: CheckBox, val qNum: TextView, val qTitle: TextView) :
+class TextViewHolder(itemView: View, val cb: CheckBox, val qNum: TextView, val qTitle: EditText) :
     QuestionViewHolder(itemView)
 
 class TenViewHolder(
@@ -47,7 +46,8 @@ class HundredViewHolder(
     val qTitle: TextView,
     val etLow: EditText,
     val etHigh: EditText,
-    val seekBar: SeekBar
+    val seekBar: SeekBar,
+    val tvPercent: TextView
 ) : QuestionViewHolder(itemView)
 
 class SortViewHolder(
@@ -123,7 +123,7 @@ class QuestionAdapter(private val context: Context, private val typeList: ArrayL
             4 -> {//百分题
                 val view = LayoutInflater
                     .from(parent.context)
-                    .inflate(R.layout.item_new_questions_hund, parent, false)
+                    .inflate(R.layout.item_new_questions_hundred, parent, false)
                 return HundredViewHolder(
                     view,
                     view.cb_item_hundred_select,
@@ -131,7 +131,8 @@ class QuestionAdapter(private val context: Context, private val typeList: ArrayL
                     view.et_question_hundred_content,
                     view.et_question_low_hundred,
                     view.et_question_high_hundred,
-                    view.sb_question_hundred
+                    view.sb_question_hundred,
+                    view.tv_hundred_percent
                 )
             }
             5 -> {//排序题
@@ -161,18 +162,99 @@ class QuestionAdapter(private val context: Context, private val typeList: ArrayL
 
     override fun onBindViewHolder(holder: QuestionViewHolder, position: Int) {
         if (holder is SingleViewHolder) {
-            holder.cb.setOnCheckedChangeListener { _, isChecked ->
-                if (isChecked) {
-                    selectedQuestions.add(position)
-                } else {
-                    selectedQuestions.remove(position)
-                }
-            }
+//            holder.cb.setOnCheckedChangeListener { _, isChecked ->
+//                if (isChecked) {
+//                    selectedQuestions.add(position)
+//                } else {
+//                    selectedQuestions.remove(position)
+//                }
+//            }
             holder.questionContainer.apply {
                 getChildAt(0).tv_question_number.text = "${position + 1}."
                 getChildAt(0).et_question_content.hint = "题目内容"
                 getChildAt(1).tv_question_number.text = "A."
                 getChildAt(1).et_question_content.hint = "选项内容"
+
+                this.addView(createChildView(this, 2))
+            }
+        } else if (holder is MultiViewHolder) {
+//            holder.cb.setOnCheckedChangeListener { _, isChecked ->
+//                if (isChecked) {
+//                    selectedQuestions.add(position)
+//                } else {
+//                    selectedQuestions.remove(position)
+//                }
+//            }
+            holder.questionContainer.apply {
+                getChildAt(0).tv_question_number.text = "${position + 1}."
+                getChildAt(0).et_question_content.hint = "题目内容..."
+                getChildAt(1).tv_question_number.text = "A."
+                getChildAt(1).et_question_content.hint = "选项内容..."
+
+                this.addView(createChildView(this, 2))
+            }
+            holder.setting.setOnClickListener {
+                Toast.makeText(context, "多选-设置", Toast.LENGTH_SHORT).show()
+            }
+        } else if (holder is TextViewHolder) {
+            holder.cb.setOnCheckedChangeListener { buttonView, isChecked ->
+
+            }
+            holder.qNum.text = "${position + 1}."
+            holder.qTitle.hint = "题目内容..."
+        } else if (holder is TenViewHolder) {
+            holder.cb.setOnCheckedChangeListener { buttonView, isChecked ->
+
+            }
+            holder.qNum.text = "${position + 1}."
+            holder.qTitle.hint = "题目内容..."
+            holder.radioGroup.setOnCheckedChangeListener { group, checkedId ->
+                when (checkedId) {
+                    R.id.rb_1 -> {
+                        Toast.makeText(context, "1", Toast.LENGTH_SHORT).show()
+                    }
+                    R.id.rb_2 -> {
+                        Toast.makeText(context, "2", Toast.LENGTH_SHORT).show()
+                    }
+                }
+            }
+        } else if (holder is HundredViewHolder) {
+            holder.cb.setOnCheckedChangeListener { buttonView, isChecked ->
+
+            }
+            holder.qNum.text = "${position + 1}."
+            holder.qTitle.hint = "题目内容..."
+            holder.seekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+                override fun onProgressChanged(
+                    seekBar: SeekBar?,
+                    progress: Int,
+                    fromUser: Boolean
+                ) {
+                    holder.tvPercent.text = progress.toString()
+                }
+
+                override fun onStartTrackingTouch(seekBar: SeekBar?) {
+                }
+
+                override fun onStopTrackingTouch(seekBar: SeekBar?) {
+                }
+
+            })
+        } else if (holder is SortViewHolder) {
+            holder.cb.setOnCheckedChangeListener { _, isChecked ->
+//                if (isChecked) {
+//                    selectedQuestions.add(position)
+//                } else {
+//                    selectedQuestions.remove(position)
+//                }
+//            }
+
+            }
+            holder.questionContainer.apply {
+                getChildAt(0).tv_question_number.text = "${position + 1}."
+                getChildAt(0).et_question_content.hint = "题目内容..."
+                getChildAt(1).tv_question_number.text = "A."
+                getChildAt(1).et_question_content.hint = "选项内容..."
 
                 this.addView(createChildView(this, 2))
             }
@@ -207,7 +289,8 @@ class QuestionAdapter(private val context: Context, private val typeList: ArrayL
     }
 
     private fun createChildView(root: ViewGroup, position: Int): View {
-        val view = LayoutInflater.from(context).inflate(R.layout.layout_question_item, root, false)
+        val view =
+            LayoutInflater.from(context).inflate(R.layout.layout_question_item, root, false)
         view.tv_question_number.visibility = View.INVISIBLE
         view.iv_question_add.visibility = View.VISIBLE
         view.iv_question_add.setOnClickListener {
@@ -215,7 +298,7 @@ class QuestionAdapter(private val context: Context, private val typeList: ArrayL
             it.visibility = View.INVISIBLE
             view.tv_question_number.text = 'A'.plus(position - 1) + "."
             view.tv_question_number.visibility = View.VISIBLE
-            view.et_question_content.hint = "选项内容"
+            view.et_question_content.hint = "选项内容..."
         }
         return view
     }
