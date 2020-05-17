@@ -1,6 +1,9 @@
 package com.example.campusform
 
 import android.content.Context
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -161,102 +164,116 @@ class QuestionAdapter(private val context: Context, private val typeList: ArrayL
     }
 
     override fun onBindViewHolder(holder: QuestionViewHolder, position: Int) {
-        if (holder is SingleViewHolder) {
-//            holder.cb.setOnCheckedChangeListener { _, isChecked ->
-//                if (isChecked) {
-//                    selectedQuestions.add(position)
-//                } else {
-//                    selectedQuestions.remove(position)
-//                }
-//            }
-            holder.questionContainer.apply {
-                getChildAt(0).tv_question_number.text = "${position + 1}."
-                getChildAt(0).et_question_content.hint = "题目内容"
-                getChildAt(1).tv_question_number.text = "A."
-                getChildAt(1).et_question_content.hint = "选项内容"
+        when (holder) {
+            is SingleViewHolder -> {
+                //            holder.cb.setOnCheckedChangeListener { _, isChecked ->
+                //                if (isChecked) {
+                //                    selectedQuestions.add(position)
+                //                } else {
+                //                    selectedQuestions.remove(position)
+                //                }
+                //            }
+                holder.questionContainer.apply {
+                    getChildAt(0).tv_question_number.text = "${position + 1}."
+                    getChildAt(0).et_question_content.hint = "题目内容"
+                    getChildAt(1).tv_question_number.text = "A."
+                    getChildAt(1).et_question_content.hint = "选项内容"
 
-                this.addView(createChildView(this, 2))
+                    this.addView(createChildView(this, 2))
+                }
             }
-        } else if (holder is MultiViewHolder) {
-//            holder.cb.setOnCheckedChangeListener { _, isChecked ->
-//                if (isChecked) {
-//                    selectedQuestions.add(position)
-//                } else {
-//                    selectedQuestions.remove(position)
-//                }
-//            }
-            holder.questionContainer.apply {
-                getChildAt(0).tv_question_number.text = "${position + 1}."
-                getChildAt(0).et_question_content.hint = "题目内容..."
-                getChildAt(1).tv_question_number.text = "A."
-                getChildAt(1).et_question_content.hint = "选项内容..."
+            is MultiViewHolder -> {
+                //            holder.cb.setOnCheckedChangeListener { _, isChecked ->
+                //                if (isChecked) {
+                //                    selectedQuestions.add(position)
+                //                } else {
+                //                    selectedQuestions.remove(position)
+                //                }
+                //            }
+                holder.questionContainer.apply {
+                    getChildAt(0).tv_question_number.text = "${position + 1}."
+                    getChildAt(0).et_question_content.hint = "题目内容..."
+                    getChildAt(1).tv_question_number.text = "A."
+                    getChildAt(1).et_question_content.hint = "选项内容..."
 
-                this.addView(createChildView(this, 2))
-            }
-            holder.setting.setOnClickListener {
-                Toast.makeText(context, "多选-设置", Toast.LENGTH_SHORT).show()
-            }
-        } else if (holder is TextViewHolder) {
-            holder.cb.setOnCheckedChangeListener { buttonView, isChecked ->
+                    this.addView(createChildView(this, 2))
+                }
+                val view =
+                    LayoutInflater.from(context).inflate(R.layout.popup_multi_setting, null)
 
+                val popup = PopupWindow(view)
+                popup.setBackgroundDrawable(ColorDrawable(Color.WHITE))
+                popup.isOutsideTouchable = true
+                holder.setting.setOnClickListener {
+                    Toast.makeText(context, "多选-设置", Toast.LENGTH_SHORT).show()
+                    popup.showAsDropDown(it)
+                }
             }
-            holder.qNum.text = "${position + 1}."
-            holder.qTitle.hint = "题目内容..."
-        } else if (holder is TenViewHolder) {
-            holder.cb.setOnCheckedChangeListener { buttonView, isChecked ->
+            is TextViewHolder -> {
+                holder.cb.setOnCheckedChangeListener { buttonView, isChecked ->
 
+                }
+                holder.qNum.text = "${position + 1}."
+                holder.qTitle.hint = "题目内容..."
             }
-            holder.qNum.text = "${position + 1}."
-            holder.qTitle.hint = "题目内容..."
-            holder.radioGroup.setOnCheckedChangeListener { group, checkedId ->
-                when (checkedId) {
-                    R.id.rb_1 -> {
-                        Toast.makeText(context, "1", Toast.LENGTH_SHORT).show()
+            is TenViewHolder -> {
+                holder.cb.setOnCheckedChangeListener { buttonView, isChecked ->
+
+                }
+                holder.qNum.text = "${position + 1}."
+                holder.qTitle.hint = "题目内容..."
+                holder.radioGroup.setOnCheckedChangeListener { group, checkedId ->
+                    when (checkedId) {
+                        R.id.rb_1 -> {
+                            Toast.makeText(context, "1", Toast.LENGTH_SHORT).show()
+                        }
+                        R.id.rb_2 -> {
+                            Toast.makeText(context, "2", Toast.LENGTH_SHORT).show()
+                        }
                     }
-                    R.id.rb_2 -> {
-                        Toast.makeText(context, "2", Toast.LENGTH_SHORT).show()
+                }
+            }
+            is HundredViewHolder -> {
+                holder.cb.setOnCheckedChangeListener { buttonView, isChecked ->
+
+                }
+                holder.qNum.text = "${position + 1}."
+                holder.qTitle.hint = "题目内容..."
+                holder.seekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+                    override fun onProgressChanged(
+                        seekBar: SeekBar?,
+                        progress: Int,
+                        fromUser: Boolean
+                    ) {
+                        holder.tvPercent.text = progress.toString()
                     }
-                }
+
+                    override fun onStartTrackingTouch(seekBar: SeekBar?) {
+                    }
+
+                    override fun onStopTrackingTouch(seekBar: SeekBar?) {
+                    }
+
+                })
             }
-        } else if (holder is HundredViewHolder) {
-            holder.cb.setOnCheckedChangeListener { buttonView, isChecked ->
+            is SortViewHolder -> {
+                holder.cb.setOnCheckedChangeListener { _, isChecked ->
+                    //                if (isChecked) {
+                    //                    selectedQuestions.add(position)
+                    //                } else {
+                    //                    selectedQuestions.remove(position)
+                    //                }
+                    //            }
 
-            }
-            holder.qNum.text = "${position + 1}."
-            holder.qTitle.hint = "题目内容..."
-            holder.seekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
-                override fun onProgressChanged(
-                    seekBar: SeekBar?,
-                    progress: Int,
-                    fromUser: Boolean
-                ) {
-                    holder.tvPercent.text = progress.toString()
                 }
+                holder.questionContainer.apply {
+                    getChildAt(0).tv_question_number.text = "${position + 1}."
+                    getChildAt(0).et_question_content.hint = "题目内容..."
+                    getChildAt(1).tv_question_number.text = "A."
+                    getChildAt(1).et_question_content.hint = "选项内容..."
 
-                override fun onStartTrackingTouch(seekBar: SeekBar?) {
+                    this.addView(createChildView(this, 2))
                 }
-
-                override fun onStopTrackingTouch(seekBar: SeekBar?) {
-                }
-
-            })
-        } else if (holder is SortViewHolder) {
-            holder.cb.setOnCheckedChangeListener { _, isChecked ->
-//                if (isChecked) {
-//                    selectedQuestions.add(position)
-//                } else {
-//                    selectedQuestions.remove(position)
-//                }
-//            }
-
-            }
-            holder.questionContainer.apply {
-                getChildAt(0).tv_question_number.text = "${position + 1}."
-                getChildAt(0).et_question_content.hint = "题目内容..."
-                getChildAt(1).tv_question_number.text = "A."
-                getChildAt(1).et_question_content.hint = "选项内容..."
-
-                this.addView(createChildView(this, 2))
             }
         }
     }
