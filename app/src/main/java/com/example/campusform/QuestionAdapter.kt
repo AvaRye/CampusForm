@@ -3,8 +3,6 @@ package com.example.campusform
 import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
-import android.util.Log
-import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,45 +18,87 @@ import kotlinx.android.synthetic.main.layout_question_item.view.*
 import kotlinx.android.synthetic.main.layout_question_item_sort.view.et_question_content
 
 open class QuestionViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
-class SingleViewHolder(itemView: View, val cb: CheckBox, val questionContainer: LinearLayout) :
-    QuestionViewHolder(itemView)
+class SingleItem() : Item {
+    override fun areContentsTheSame(newItem: Item): Boolean {
+        return newItem is SingleItem
+    }
 
-class MultiViewHolder(
-    itemView: View,
-    val cb: CheckBox,
-    val questionContainer: LinearLayout,
-    val setting: ImageView
-) : QuestionViewHolder(itemView)
+    override fun areItemsTheSame(newItem: Item): Boolean {
+        return super.areItemsTheSame(newItem)
+    }
 
-class TextViewHolder(itemView: View, val cb: CheckBox, val qNum: TextView, val qTitle: EditText) :
-    QuestionViewHolder(itemView)
+    companion object Controller : ItemController {
+        override fun onBindViewHolder(holder: RecyclerView.ViewHolder, item: Item, position: Int) {
+            if (holder is SingleViewHolder && item is SingleItem) {
+                holder.questionContainer.apply {
+                    getChildAt(0).tv_question_number.text = "${position + 1}."
+                    getChildAt(0).et_question_content.hint = "题目内容"
+                    getChildAt(1).tv_question_number.text = "A."
+                    getChildAt(1).et_question_content.hint = "选项内容"
 
-class TenViewHolder(
-    itemView: View,
-    val cb: CheckBox,
-    val qNum: TextView,
-    val qTitle: TextView,
-    val etLow: EditText,
-    val etHigh: EditText,
-    val radioGroup: RadioGroup
-) : QuestionViewHolder(itemView)
+                    this.addView(createChildView(this))
+                }
+            }
+        }
 
-class HundredViewHolder(
-    itemView: View,
-    val cb: CheckBox,
-    val qNum: TextView,
-    val qTitle: TextView,
-    val etLow: EditText,
-    val etHigh: EditText,
-    val seekBar: SeekBar,
-    val tvPercent: TextView
-) : QuestionViewHolder(itemView)
+        override fun onCreateViewHolder(parent: ViewGroup): RecyclerView.ViewHolder {
+            val view = LayoutInflater
+                .from(parent.context)
+                .inflate(R.layout.item_new_questions_single_select, parent, false)
+            return SingleViewHolder(
+                view,
+                view.cb_item_single_select,
+                view.ll_questions_single_container
+            )
+        }
 
-class SortViewHolder(
-    itemView: View,
-    val cb: CheckBox,
-    val questionContainer: LinearLayout
-) : QuestionViewHolder(itemView)
+    }
+
+    class SingleViewHolder(itemView: View, val cb: CheckBox, val questionContainer: LinearLayout) :
+        QuestionViewHolder(itemView)
+
+    override val controller: ItemController
+        get() = Controller
+
+}
+
+//
+//class MultiViewHolder(
+//    itemView: View,
+//    val cb: CheckBox,
+//    val questionContainer: LinearLayout,
+//    val setting: ImageView
+//) : QuestionViewHolder(itemView)
+//
+//class TextViewHolder(itemView: View, val cb: CheckBox, val qNum: TextView, val qTitle: EditText) :
+//    QuestionViewHolder(itemView)
+//
+//class TenViewHolder(
+//    itemView: View,
+//    val cb: CheckBox,
+//    val qNum: TextView,
+//    val qTitle: TextView,
+//    val etLow: EditText,
+//    val etHigh: EditText,
+//    val radioGroup: RadioGroup
+//) : QuestionViewHolder(itemView)
+//
+//class HundredViewHolder(
+//    itemView: View,
+//    val cb: CheckBox,
+//    val qNum: TextView,
+//    val qTitle: TextView,
+//    val etLow: EditText,
+//    val etHigh: EditText,
+//    val seekBar: SeekBar,
+//    val tvPercent: TextView
+//) : QuestionViewHolder(itemView)
+//
+//class SortViewHolder(
+//    itemView: View,
+//    val cb: CheckBox,
+//    val questionContainer: LinearLayout
+//) : QuestionViewHolder(itemView)
 
 class QuestionAdapter(private val context: Context, private val typeList: ArrayList<QuestionType>) :
     RecyclerView.Adapter<QuestionViewHolder>() {
@@ -78,14 +118,7 @@ class QuestionAdapter(private val context: Context, private val typeList: ArrayL
         when (viewType) {
             0 -> {
                 //单选题
-                val view = LayoutInflater
-                    .from(parent.context)
-                    .inflate(R.layout.item_new_questions_single_select, parent, false)
-                return SingleViewHolder(
-                    view,
-                    view.cb_item_single_select,
-                    view.ll_questions_single_container
-                )
+
             }
             1 -> {//多选题
                 val view = LayoutInflater
@@ -174,14 +207,7 @@ class QuestionAdapter(private val context: Context, private val typeList: ArrayL
                 //                    selectedQuestions.remove(position)
                 //                }
                 //            }
-                holder.questionContainer.apply {
-                    getChildAt(0).tv_question_number.text = "${position + 1}."
-                    getChildAt(0).et_question_content.hint = "题目内容"
-                    getChildAt(1).tv_question_number.text = "A."
-                    getChildAt(1).et_question_content.hint = "选项内容"
 
-                    this.addView(createChildView(this))
-                }
             }
             is MultiViewHolder -> {
                 //            holder.cb.setOnCheckedChangeListener { _, isChecked ->
@@ -306,30 +332,31 @@ class QuestionAdapter(private val context: Context, private val typeList: ArrayL
         typeList.removeAt(position)
     }
 
-    @Synchronized
-    private fun createChildView(root: ViewGroup): View {
-        val view =
-            LayoutInflater.from(context).inflate(R.layout.layout_question_item, root, false)
-        view.tv_question_number.visibility = View.INVISIBLE
-        view.iv_question_add.visibility = View.VISIBLE
-        view.iv_question_sub.setOnClickListener {
-            var position = root.indexOfChild(view)
-            root.removeView(view)
-            while (position < root.childCount) {
-                val child = root.getChildAt(position)
-                child.tv_question_number.text = 'A'.plus(position - 1) + "."
-                position++
-            }
-        }
-        view.iv_question_add.setOnClickListener {
-            view.iv_question_sub.visibility = View.VISIBLE
-            view.tv_question_number.text = 'A'.plus(root.childCount - 2) + "."
-            root.addView(createChildView(root))
-            it.visibility = View.INVISIBLE
-            view.tv_question_number.visibility = View.VISIBLE
-            view.et_question_content.hint = "选项内容..."
-        }
-        return view
-    }
 
+}
+
+@Synchronized
+fun createChildView(root: ViewGroup, context: Context): View {
+    val view =
+        LayoutInflater.from(context).inflate(R.layout.layout_question_item, root, false)
+    view.tv_question_number.visibility = View.INVISIBLE
+    view.iv_question_add.visibility = View.VISIBLE
+    view.iv_question_sub.setOnClickListener {
+        var position = root.indexOfChild(view)
+        root.removeView(view)
+        while (position < root.childCount) {
+            val child = root.getChildAt(position)
+            child.tv_question_number.text = 'A'.plus(position - 1) + "."
+            position++
+        }
+    }
+    view.iv_question_add.setOnClickListener {
+        view.iv_question_sub.visibility = View.VISIBLE
+        view.tv_question_number.text = 'A'.plus(root.childCount - 2) + "."
+        root.addView(createChildView(root))
+        it.visibility = View.INVISIBLE
+        view.tv_question_number.visibility = View.VISIBLE
+        view.et_question_content.hint = "选项内容..."
+    }
+    return view
 }
