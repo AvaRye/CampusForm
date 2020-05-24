@@ -720,6 +720,7 @@ color switch_thumb_normal_material_dark
 color switch_thumb_normal_material_light
 color tooltip_background_dark
 color tooltip_background_light
+color white
 dimen abc_action_bar_content_inset_material
 dimen abc_action_bar_content_inset_with_nav
 dimen abc_action_bar_default_height_material
@@ -1049,6 +1050,7 @@ drawable ic_avator
 drawable ic_eye
 drawable ic_launcher_background
 drawable ic_launcher_foreground
+drawable ic_list
 drawable ic_mtrl_chip_checked_black
 drawable ic_mtrl_chip_checked_circle
 drawable ic_mtrl_chip_close_circle
@@ -1230,6 +1232,7 @@ id iv_new_preview
 id iv_new_remove
 id iv_new_setting
 id iv_question_add
+id iv_question_sub
 id labeled
 id largeLabel
 id layout_item_question
@@ -1272,6 +1275,16 @@ id pin
 id progress_circular
 id progress_horizontal
 id radio
+id rb_1
+id rb_10
+id rb_2
+id rb_3
+id rb_4
+id rb_5
+id rb_6
+id rb_7
+id rb_8
+id rb_9
 id rg_question_ten
 id right
 id right_icon
@@ -1354,6 +1367,7 @@ id transition_position
 id transition_scene_layoutid_cache
 id transition_transform
 id tv_change
+id tv_hundred_percent
 id tv_item_home
 id tv_list_child_name
 id tv_list_child_time
@@ -1452,7 +1466,7 @@ layout design_text_input_password_icon
 layout item_home
 layout item_list_child
 layout item_list_group
-layout item_new_questions_hund
+layout item_new_questions_hundred
 layout item_new_questions_multi_select
 layout item_new_questions_single_select
 layout item_new_questions_sort
@@ -1469,6 +1483,7 @@ layout notification_template_custom_big
 layout notification_template_icon_group
 layout notification_template_part_chronometer
 layout notification_template_part_time
+layout popup_multi_setting
 layout select_dialog_item_material
 layout select_dialog_multichoice_material
 layout select_dialog_singlechoice_material
