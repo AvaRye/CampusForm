@@ -3,6 +3,7 @@ package com.example.campusform
 import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
+import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
@@ -179,7 +180,7 @@ class QuestionAdapter(private val context: Context, private val typeList: ArrayL
                     getChildAt(1).tv_question_number.text = "A."
                     getChildAt(1).et_question_content.hint = "选项内容"
 
-                    this.addView(createChildView(this, 2))
+                    this.addView(createChildView(this))
                 }
             }
             is MultiViewHolder -> {
@@ -196,7 +197,7 @@ class QuestionAdapter(private val context: Context, private val typeList: ArrayL
                     getChildAt(1).tv_question_number.text = "A."
                     getChildAt(1).et_question_content.hint = "选项内容..."
 
-                    this.addView(createChildView(this, 2))
+                    this.addView(createChildView(this))
                 }
                 val view =
                     LayoutInflater.from(context).inflate(R.layout.popup_multi_setting, null)
@@ -272,7 +273,7 @@ class QuestionAdapter(private val context: Context, private val typeList: ArrayL
                     getChildAt(1).tv_question_number.text = "A."
                     getChildAt(1).et_question_content.hint = "选项内容..."
 
-                    this.addView(createChildView(this, 2))
+                    this.addView(createChildView(this))
                 }
             }
         }
@@ -305,18 +306,30 @@ class QuestionAdapter(private val context: Context, private val typeList: ArrayL
         typeList.removeAt(position)
     }
 
-    private fun createChildView(root: ViewGroup, position: Int): View {
+    @Synchronized
+    private fun createChildView(root: ViewGroup): View {
         val view =
             LayoutInflater.from(context).inflate(R.layout.layout_question_item, root, false)
         view.tv_question_number.visibility = View.INVISIBLE
         view.iv_question_add.visibility = View.VISIBLE
+        view.iv_question_sub.setOnClickListener {
+            var position = root.indexOfChild(view)
+            root.removeView(view)
+            while (position < root.childCount) {
+                val child = root.getChildAt(position)
+                child.tv_question_number.text = 'A'.plus(position - 1) + "."
+                position++
+            }
+        }
         view.iv_question_add.setOnClickListener {
-            root.addView(createChildView(root, position + 1))
+            view.iv_question_sub.visibility = View.VISIBLE
+            view.tv_question_number.text = 'A'.plus(root.childCount - 2) + "."
+            root.addView(createChildView(root))
             it.visibility = View.INVISIBLE
-            view.tv_question_number.text = 'A'.plus(position - 1) + "."
             view.tv_question_number.visibility = View.VISIBLE
             view.et_question_content.hint = "选项内容..."
         }
         return view
     }
+
 }
