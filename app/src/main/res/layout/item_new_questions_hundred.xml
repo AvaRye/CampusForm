@@ -3,14 +3,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="15dp"
+    android:layout_marginVertical="5dp"
     android:orientation="horizontal"
-    app:cardCornerRadius="8dp">
+    app:cardCornerRadius="0dp"
+    app:cardElevation="1dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:padding="8dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:padding="8dp">
 
         <LinearLayout
             android:id="@+id/ll_questions_hundred"
@@ -32,54 +33,59 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <EditText
-                android:hint="题目内容..."
                 android:id="@+id/et_question_hundred_content"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_marginLeft="10dp"
                 android:background="@drawable/edit_background"
+                android:hint="题目内容..."
                 android:padding="8dp"
+                android:textSize="14sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/iv_question_add"
                 app:layout_constraintTop_toTopOf="parent" />
         </LinearLayout>
 
         <EditText
-            android:hint="低"
             android:id="@+id/et_question_low_hundred"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:hint="低"
+            android:textSize="14sp"
             app:layout_constraintStart_toStartOf="@+id/sb_question_hundred"
             app:layout_constraintTop_toBottomOf="@+id/ll_questions_hundred" />
 
         <EditText
-            android:hint="高"
+            android:textSize="14sp"
             android:id="@+id/et_question_high_hundred"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:hint="高"
             app:layout_constraintEnd_toEndOf="@id/sb_question_hundred"
             app:layout_constraintTop_toBottomOf="@+id/ll_questions_hundred" />
+
         <TextView
-            android:text="0"
-            android:layout_marginRight="10dp"
-            app:layout_constraintTop_toTopOf="@+id/sb_question_hundred"
-            app:layout_constraintBottom_toBottomOf="@id/sb_question_hundred"
-            app:layout_constraintEnd_toStartOf="@+id/sb_question_hundred"
             android:id="@+id/tv_hundred_percent"
             android:layout_width="30dp"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="10dp" />
+            android:layout_marginEnd="5dp"
+            android:layout_marginRight="5dp"
+            android:text="0"
+            android:gravity="center"
+            app:layout_constraintBottom_toBottomOf="@id/sb_question_hundred"
+            app:layout_constraintEnd_toStartOf="@+id/sb_question_hundred"
+            app:layout_constraintTop_toTopOf="@+id/sb_question_hundred" />
+
         <SeekBar
-            android:layout_marginTop="8dp"
-            app:layout_constraintStart_toStartOf="@+id/tv_hundred_percent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/et_question_low_hundred"
             android:id="@+id/sb_question_hundred"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            android:layout_marginTop="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/tv_hundred_percent"
+            app:layout_constraintTop_toBottomOf="@+id/et_question_low_hundred" />
 
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.cardview.widget.CardView>

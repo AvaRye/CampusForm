@@ -1,3 +1,18 @@
 <resources>
     <string name="app_name">CampusForm</string>
+    <string name="title">Campus Form</string>
+    <string name="question">问卷</string>
+    <string name="vote">投票</string>
+    <string name="answer">考试</string>
+    <string name="edit_question">编辑问卷</string>
+    <string name="name_question">问卷名称</string>
+    <string name="describe_question">问卷说明</string>
+    <string name="edit_vote">编辑投票</string>
+    <string name="name_vote">投票名称</string>
+    <string name="describe_vote">投票说明</string>
+    <string name="edit_answer">编辑考试</string>
+    <string name="name_answer">考试名称</string>
+    <string name="describe_answer">考试说明</string>
+
+
 </resources>

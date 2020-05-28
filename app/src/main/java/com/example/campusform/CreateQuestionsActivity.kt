@@ -7,6 +7,7 @@ import android.widget.ArrayAdapter
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.activity_new.*
+import kotlinx.android.synthetic.main.item_toolbar.view.*
 
 class CreateQuestionsActivity : AppCompatActivity() {
     private var type = QuestionAdapter.Companion.QuestionType.SINGLE_QUESTION
@@ -15,12 +16,20 @@ class CreateQuestionsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_new)
-        iv_new_back.setOnClickListener {
-            onBackPressed()
-        }
-        btn_new_submit.setOnClickListener {
 
+        tb_new.apply {
+            tv_tb_title.text = getString(R.string.edit_question)
+            iv_tb_back.visibility = View.VISIBLE
+            iv_tb_avatar.visibility = View.VISIBLE
+            iv_tb_back.setOnClickListener {
+                onBackPressed()
+            }
         }
+
+        tv_new_submit.setOnClickListener {
+            //submit
+        }
+
         spinner_new_type.adapter =
             ArrayAdapter<String>(this, R.layout.item_new_spinner, arrayList).apply {
                 setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)

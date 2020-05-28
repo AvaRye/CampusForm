@@ -1,4 +1,4 @@
-#Sun May 03 12:25:42 CST 2020
-base.0=D\:\\Project\\CampusForm\\app\\build\\intermediates\\dex\\debug\\out\\classes.dex
+#Thu May 28 20:09:58 CST 2020
+base.0=E\:\\AS\\CampusForm\\app\\build\\intermediates\\dex\\debug\\out\\classes.dex
 path.0=classes.dex
 renamed.0=classes.dex

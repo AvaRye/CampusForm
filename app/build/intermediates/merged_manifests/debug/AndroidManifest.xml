@@ -19,9 +19,7 @@
         android:testOnly="true"
         android:theme="@style/AppThemeNoActionBar" >
         <activity android:name="com.example.campusform.ListActivity" />
-        <activity
-            android:name="com.example.campusform.LoginActivity"
-            android:theme="@style/AppTheme" >
+        <activity android:name="com.example.campusform.LoginActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

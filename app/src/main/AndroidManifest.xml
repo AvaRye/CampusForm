@@ -11,8 +11,7 @@
         android:theme="@style/AppThemeNoActionBar">
         <activity android:name=".ListActivity"></activity>
         <activity
-            android:name=".LoginActivity"
-            android:theme="@style/AppTheme">
+            android:name=".LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

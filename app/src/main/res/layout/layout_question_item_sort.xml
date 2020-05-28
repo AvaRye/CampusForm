@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    android:layout_marginTop="6dp"
+<androidx.constraintlayout.widget.ConstraintLayout android:layout_marginTop="6dp"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    >
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
     <EditText
         android:visibility="invisible"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:id="@+id/et_question_sort"
         android:layout_width="24dp"
-        android:layout_height="24dp"/>
+        android:layout_height="24dp" />
+
     <TextView
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -21,7 +21,8 @@
         android:textSize="18sp"
         android:text="1."
         android:layout_width="24dp"
-        android:layout_height="24dp"/>
+        android:layout_height="24dp" />
+
     <EditText
         android:padding="8dp"
         android:id="@+id/et_question_content"
@@ -31,6 +32,7 @@
         android:layout_marginStart="10dp"
         android:background="@drawable/edit_background"
         android:layout_width="0dp"
+        android:textSize="14sp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>
