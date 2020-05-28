@@ -326,19 +326,19 @@ class SortItem(val context: Context) : Item {
         val questionContainer: LinearLayout
     ) : QuestionViewHolder(itemView)
 }
-
+enum class QuestionType {
+    SINGLE_QUESTION,
+    MULTI_QUESTION,
+    TEXT_QUESTION,
+    TEN_QUESTION,
+    HUNDRED_QUESTION,
+    SORT_QUESTION
+}
 //
 //class QuestionAdapter(private val context: Context, private val typeList: ArrayList<QuestionType>) :
 //    RecyclerView.Adapter<QuestionViewHolder>() {
 //    companion object {
-//        enum class QuestionType {
-//            SINGLE_QUESTION,
-//            MULTI_QUESTION,
-//            TEXT_QUESTION,
-//            TEN_QUESTION,
-//            HUND_QUESTION,
-//            SORT_QUESTION
-//        }
+
 //    }
 //
 //    private val selectedQuestions = ArrayList<Int>()
