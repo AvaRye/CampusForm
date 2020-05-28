@@ -20,9 +20,9 @@ import kotlinx.android.synthetic.main.layout_question_item_sort.view.et_question
 open class QuestionViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
 class SingleItem(val context: Context) : Item {
 
-    override fun areItemsTheSame(newItem: Item): Boolean {
-        return newItem is SingleItem
-    }
+//    override fun areItemsTheSame(newItem: Item): Boolean {
+//        return newItem is SingleItem
+//    }
 
     companion object Controller : ItemController {
         override fun onBindViewHolder(holder: RecyclerView.ViewHolder, item: Item, position: Int) {
@@ -60,9 +60,9 @@ class SingleItem(val context: Context) : Item {
 }
 
 class MultiItem(val context: Context) : Item {
-    override fun areItemsTheSame(newItem: Item): Boolean {
-        return newItem is MultiItem
-    }
+//    override fun areItemsTheSame(newItem: Item): Boolean {
+//        return newItem is MultiItem
+//    }
 
     companion object Controller : ItemController {
         override fun onCreateViewHolder(parent: ViewGroup): RecyclerView.ViewHolder {
@@ -114,9 +114,9 @@ class MultiItem(val context: Context) : Item {
 }
 
 class TextItem(val context: Context) : Item {
-    override fun areItemsTheSame(newItem: Item): Boolean {
-        return newItem is TextItem
-    }
+//    override fun areItemsTheSame(newItem: Item): Boolean {
+//        return newItem is TextItem
+//    }
 
     override val controller: ItemController
         get() = Controller
@@ -157,9 +157,9 @@ class TextItem(val context: Context) : Item {
 }
 
 class TenItem(val context: Context) : Item {
-    override fun areItemsTheSame(newItem: Item): Boolean {
-        return newItem is TenItem
-    }
+//    override fun areItemsTheSame(newItem: Item): Boolean {
+//        return newItem is TenItem
+//    }
 
     override val controller: ItemController
         get() = Controller
@@ -213,9 +213,9 @@ class TenItem(val context: Context) : Item {
 }
 
 class HundredItem(val context: Context) : Item {
-    override fun areItemsTheSame(newItem: Item): Boolean {
-        return newItem is HundredItem
-    }
+//    override fun areItemsTheSame(newItem: Item): Boolean {
+//        return newItem is HundredItem
+//    }
 
     override val controller: ItemController
         get() = Controller
@@ -278,9 +278,9 @@ class HundredItem(val context: Context) : Item {
 }
 
 class SortItem(val context: Context) : Item {
-    override fun areItemsTheSame(newItem: Item): Boolean {
-        return newItem is SortItem
-    }
+//    override fun areItemsTheSame(newItem: Item): Boolean {
+//        return newItem is SortItem
+//    }
 
     override val controller: ItemController
         get() = Controller

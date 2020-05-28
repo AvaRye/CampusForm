@@ -10,7 +10,7 @@ import kotlinx.android.synthetic.main.activity_new.*
 
 class CreateQuestionsActivity : AppCompatActivity() {
     private var type = QuestionType.SINGLE_QUESTION
-    private val itemList = arrayListOf<Item>()
+//    private val itemList = arrayListOf<Item>()
     private val arrayList = arrayListOf("单选题", "多选题", "文本题", "十分量表题", "百分量表题", "排序题")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,21 +54,19 @@ class CreateQuestionsActivity : AppCompatActivity() {
 //        )
 //        adapter.addQuestion(QuestionAdapter.Companion.QuestionType.SINGLE_QUESTION)
 //        rv_new_questions.adapter = adapter
-        itemList.add(ItemFactory.createItem(type,this))
+//        itemList.add(ItemFactory.createItem(type,this))
 
-        rv_new_questions.adapter = ItemAdapter(ItemManager())
+        val itemManager = ItemManager()
+        rv_new_questions.adapter = ItemAdapter(itemManager)
         rv_new_questions.layoutManager = LinearLayoutManager(this)
-        rv_new_questions.refreshAll {
-            this.addAll(itemList)
-        }
+        itemManager.add(createItem())
         iv_new_add.setOnClickListener {
-            itemList.add(ItemFactory.createItem(type,this))
-            rv_new_questions.refreshAll {
-                this.addAll(itemList)
-            }
+//            itemList.add(ItemFactory.createItem(type,this))
+            itemManager.add(createItem())
         }
         iv_new_remove.setOnClickListener {
 //            adapter.delete()
         }
     }
+    private inline fun createItem():Item = ItemFactory.createItem(type,this)
 }
