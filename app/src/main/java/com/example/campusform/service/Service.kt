@@ -13,6 +13,9 @@ object Api {
 
 val listLiveData = MutableLiveData<List<String>>()
 
+data class Doc(
+    val jd: String
+)
 
 inline fun <T> LiveData<T>.bindNonNull(
     lifecycleOwner: LifecycleOwner,

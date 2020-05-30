@@ -11,7 +11,7 @@
         layout="@layout/item_toolbar" />
 
     <TextView
-        android:id="@+id/tv_new_name_title"
+        android:id="@+id/tv_new_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignTop="@id/et_new_name"
@@ -34,8 +34,8 @@
         android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="10dp"
-        android:layout_toEndOf="@id/tv_new_name_title"
-        android:layout_toRightOf="@id/tv_new_name_title"
+        android:layout_toEndOf="@id/tv_new_name"
+        android:layout_toRightOf="@id/tv_new_name"
         android:background="@drawable/edit_background"
         android:hint="输入名称"
         android:inputType="text"
@@ -47,7 +47,7 @@
         android:id="@+id/tv_new_describe"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/tv_new_name_title"
+        android:layout_below="@id/tv_new_name"
         android:layout_alignTop="@id/et_new_describe"
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
@@ -78,18 +78,85 @@
         android:id="@+id/tv_new_effective"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/et_new_describe"
+        android:layout_alignTop="@id/tv_new_date_begin"
         android:layout_marginStart="10dp"
         android:layout_marginLeft="10dp"
-        android:layout_marginTop="10dp"
         android:text="有效时间"
         android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/tv_new_date_begin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/et_new_describe"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_toEndOf="@id/tv_new_effective"
+        android:layout_toRightOf="@id/tv_new_effective"
+        android:background="@drawable/edit_background"
+        android:paddingHorizontal="6dp"
+        android:paddingVertical="3dp"
+        tools:text="2020-05-16" />
+
+    <TextView
+        android:id="@+id/tv_new_time_begin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/tv_new_date_begin"
+        android:layout_toEndOf="@id/tv_new_date_begin"
+        android:layout_toRightOf="@id/tv_new_date_begin"
+        android:background="@drawable/edit_background"
+        android:paddingHorizontal="6dp"
+        android:paddingVertical="3dp"
+        tools:text="08:00" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/tv_new_time_begin"
+        android:layout_alignBottom="@id/tv_new_time_begin"
+        android:layout_marginStart="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_toEndOf="@id/tv_new_time_begin"
+        android:layout_toRightOf="@id/tv_new_time_begin"
+        android:gravity="center"
+        android:text="至" />
+
+    <TextView
+        android:id="@+id/tv_new_date_end"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_new_date_begin"
+        android:layout_alignStart="@id/tv_new_date_begin"
+        android:layout_alignLeft="@id/tv_new_date_begin"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_toEndOf="@id/tv_new_effective"
+        android:layout_toRightOf="@id/tv_new_effective"
+        android:background="@drawable/edit_background"
+        android:paddingHorizontal="6dp"
+        android:paddingVertical="3dp"
+        tools:text="2020-05-16" />
+
+    <TextView
+        android:id="@+id/tv_new_time_end"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/tv_new_date_end"
+        android:layout_toEndOf="@id/tv_new_date_begin"
+        android:layout_toRightOf="@id/tv_new_date_begin"
+        android:background="@drawable/edit_background"
+        android:paddingHorizontal="6dp"
+        android:paddingVertical="3dp"
+        tools:text="08:00" />
 
     <TextView
         android:id="@+id/tv_new_submit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/tv_new_effective"
+        android:layout_alignTop="@id/tv_new_time_end"
         android:layout_alignEnd="@id/et_new_name"
         android:layout_alignRight="@id/et_new_name"
         android:layout_marginVertical="10dp"

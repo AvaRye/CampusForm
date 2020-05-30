@@ -36,12 +36,12 @@
         "source": "E:\\AS\\CampusForm\\app\\src\\main\\res\\layout\\layout_question_item.xml"
     },
     {
-        "merged": "E:\\AS\\CampusForm\\app\\build\\intermediates\\res\\merged\\debug\\drawable-ldpi_ic_launcher_background.png.flat",
-        "source": "E:\\AS\\CampusForm\\app\\build\\generated\\res\\pngs\\debug\\drawable-ldpi\\ic_launcher_background.png"
-    },
-    {
         "merged": "E:\\AS\\CampusForm\\app\\build\\intermediates\\res\\merged\\debug\\layout_item_list_group.xml.flat",
         "source": "E:\\AS\\CampusForm\\app\\src\\main\\res\\layout\\item_list_group.xml"
+    },
+    {
+        "merged": "E:\\AS\\CampusForm\\app\\build\\intermediates\\res\\merged\\debug\\drawable-ldpi_ic_launcher_background.png.flat",
+        "source": "E:\\AS\\CampusForm\\app\\build\\generated\\res\\pngs\\debug\\drawable-ldpi\\ic_launcher_background.png"
     },
     {
         "merged": "E:\\AS\\CampusForm\\app\\build\\intermediates\\res\\merged\\debug\\layout_item_list_child.xml.flat",

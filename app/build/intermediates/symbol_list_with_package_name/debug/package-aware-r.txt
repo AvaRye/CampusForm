@@ -1392,10 +1392,14 @@ id tv_list_child_name
 id tv_list_child_time
 id tv_list_group
 id tv_login
+id tv_new_date_begin
+id tv_new_date_end
 id tv_new_describe
 id tv_new_effective
-id tv_new_name_title
+id tv_new_name
 id tv_new_submit
+id tv_new_time_begin
+id tv_new_time_end
 id tv_question_hundred_number
 id tv_question_number
 id tv_question_sort_num

@@ -1,5 +1,6 @@
 package com.example.campusform
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -33,7 +34,6 @@ class ListActivity : AppCompatActivity() {
             }
         }
 
-
         openFragment = OpenFragment.newInstance()
         closedFragment = ClosedFragment.newInstance()
         tabLayout = tl_list
@@ -61,8 +61,9 @@ class ListActivity : AppCompatActivity() {
         }
 */
         fab_new.setOnClickListener {
-            //跳转到编辑
+            //跳转到新建
             Toast.makeText(this, "新建", Toast.LENGTH_SHORT).show()
+            startActivity(Intent(this, CreateQuestionsActivity::class.java))
         }
     }
 
