@@ -12,7 +12,7 @@
         android:layout_marginVertical="15dp"
         android:layout_marginStart="20dp"
         android:layout_marginLeft="20dp"
-        android:textSize="20sp"
+        android:textSize="16sp"
         tools:text="已开放" />
 
 </RelativeLayout>

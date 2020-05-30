@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="15dp"
+    android:layout_marginVertical="5dp"
     android:orientation="horizontal"
-    app:cardCornerRadius="8dp">
+    app:cardCornerRadius="0dp"
+    app:cardElevation="1dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:padding="8dp"
@@ -30,12 +30,14 @@
             android:textSize="18sp"
             android:text="1."
             android:layout_width="24dp"
-            android:layout_height="24dp"/>
+            android:layout_height="24dp" />
+
         <EditText
             android:gravity="start"
             app:layout_constraintTop_toTopOf="parent"
             android:hint="题目内容..."
             android:padding="8dp"
+            android:textSize="14sp"
             android:id="@+id/et_question_text_content"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/tv_question_text_number"
