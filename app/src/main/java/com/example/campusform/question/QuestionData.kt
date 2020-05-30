@@ -1,7 +1,10 @@
 package com.example.campusform.question
 
+import com.example.campusform.Item
+
 object QuestionData {
     val data: ArrayList<Question> = arrayListOf()
+    val itemSelectedList = arrayListOf<Int>()
 
     fun getQuestion(position: Int): Question = data[position]
 
@@ -19,7 +22,7 @@ object QuestionData {
         data.remove(question)
     }
 
-    fun updateQuestion(questionPosition: Int,question: Question) {
+    fun updateQuestion(questionPosition: Int, question: Question) {
         data[questionPosition] = question
     }
 

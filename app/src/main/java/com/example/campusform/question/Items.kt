@@ -37,6 +37,14 @@ class SingleItem(val context: Context) : Item, Checkable {
                 if (!holders.contains(holder)) {
                     holders.add(holder)
                 }
+                holder.cb.isChecked = QuestionData.itemSelectedList.contains(position)
+                holder.cb.setOnCheckedChangeListener { buttonView, isChecked ->
+                    if(isChecked){
+                        QuestionData.itemSelectedList.add(position)
+                    }else{
+                        QuestionData.itemSelectedList.remove(position)
+                    }
+                }
 
                 holder.qTitle.hint = "题目内容.."
                 holder.qNum.text = "${position + 1}."
