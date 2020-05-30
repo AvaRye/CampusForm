@@ -6,51 +6,51 @@
 6
 7    <uses-sdk
 8        android:minSdkVersion="16"
-8-->E:\AS\CampusForm\app\src\main\AndroidManifest.xml
+8-->D:\Project\CampusForm\app\src\main\AndroidManifest.xml
 9        android:targetSdkVersion="29" />
-9-->E:\AS\CampusForm\app\src\main\AndroidManifest.xml
+9-->D:\Project\CampusForm\app\src\main\AndroidManifest.xml
 10
 11    <application
-11-->E:\AS\CampusForm\app\src\main\AndroidManifest.xml:5:5-23:19
+11-->D:\Project\CampusForm\app\src\main\AndroidManifest.xml:5:5-23:19
 12        android:allowBackup="true"
-12-->E:\AS\CampusForm\app\src\main\AndroidManifest.xml:6:9-35
+12-->D:\Project\CampusForm\app\src\main\AndroidManifest.xml:6:9-35
 13        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
-13-->[androidx.core:core:1.1.0] C:\Users\14703\.gradle\caches\transforms-2\files-2.1\0db6b347988c686698f69452bf1e489f\core-1.1.0\AndroidManifest.xml:24:18-86
+13-->[androidx.core:core:1.1.0] C:\Users\27299\.gradle\caches\transforms-2\files-2.1\c2773a24582d849dd12d36cc81372f6b\core-1.1.0\AndroidManifest.xml:24:18-86
 14        android:debuggable="true"
 15        android:icon="@mipmap/ic_launcher"
-15-->E:\AS\CampusForm\app\src\main\AndroidManifest.xml:7:9-43
+15-->D:\Project\CampusForm\app\src\main\AndroidManifest.xml:7:9-43
 16        android:label="@string/app_name"
-16-->E:\AS\CampusForm\app\src\main\AndroidManifest.xml:8:9-41
+16-->D:\Project\CampusForm\app\src\main\AndroidManifest.xml:8:9-41
 17        android:roundIcon="@mipmap/ic_launcher_round"
-17-->E:\AS\CampusForm\app\src\main\AndroidManifest.xml:9:9-54
+17-->D:\Project\CampusForm\app\src\main\AndroidManifest.xml:9:9-54
 18        android:supportsRtl="true"
-18-->E:\AS\CampusForm\app\src\main\AndroidManifest.xml:10:9-35
+18-->D:\Project\CampusForm\app\src\main\AndroidManifest.xml:10:9-35
 19        android:testOnly="true"
 20        android:theme="@style/AppThemeNoActionBar" >
-20-->E:\AS\CampusForm\app\src\main\AndroidManifest.xml:11:9-51
+20-->D:\Project\CampusForm\app\src\main\AndroidManifest.xml:11:9-51
 21        <activity android:name="com.example.campusform.ListActivity" />
-21-->E:\AS\CampusForm\app\src\main\AndroidManifest.xml:12:9-59
-21-->E:\AS\CampusForm\app\src\main\AndroidManifest.xml:12:19-47
+21-->D:\Project\CampusForm\app\src\main\AndroidManifest.xml:12:9-50
+21-->D:\Project\CampusForm\app\src\main\AndroidManifest.xml:12:19-47
 22        <activity android:name="com.example.campusform.LoginActivity" >
-22-->E:\AS\CampusForm\app\src\main\AndroidManifest.xml:13:9-20:20
-22-->E:\AS\CampusForm\app\src\main\AndroidManifest.xml:14:13-42
+22-->D:\Project\CampusForm\app\src\main\AndroidManifest.xml:13:9-20:20
+22-->D:\Project\CampusForm\app\src\main\AndroidManifest.xml:14:13-42
 23            <intent-filter>
-23-->E:\AS\CampusForm\app\src\main\AndroidManifest.xml:15:13-19:29
+23-->D:\Project\CampusForm\app\src\main\AndroidManifest.xml:15:13-19:29
 24                <action android:name="android.intent.action.MAIN" />
-24-->E:\AS\CampusForm\app\src\main\AndroidManifest.xml:16:17-69
-24-->E:\AS\CampusForm\app\src\main\AndroidManifest.xml:16:25-66
+24-->D:\Project\CampusForm\app\src\main\AndroidManifest.xml:16:17-69
+24-->D:\Project\CampusForm\app\src\main\AndroidManifest.xml:16:25-66
 25
 26                <category android:name="android.intent.category.LAUNCHER" />
-26-->E:\AS\CampusForm\app\src\main\AndroidManifest.xml:18:17-77
-26-->E:\AS\CampusForm\app\src\main\AndroidManifest.xml:18:27-74
+26-->D:\Project\CampusForm\app\src\main\AndroidManifest.xml:18:17-77
+26-->D:\Project\CampusForm\app\src\main\AndroidManifest.xml:18:27-74
 27            </intent-filter>
 28        </activity>
-29        <activity android:name="com.example.campusform.CreateQuestionsActivity" />
-29-->E:\AS\CampusForm\app\src\main\AndroidManifest.xml:21:9-60
-29-->E:\AS\CampusForm\app\src\main\AndroidManifest.xml:21:19-58
+29        <activity android:name="com.example.campusform.question.CreateQuestionsActivity" />
+29-->D:\Project\CampusForm\app\src\main\AndroidManifest.xml:21:9-69
+29-->D:\Project\CampusForm\app\src\main\AndroidManifest.xml:21:19-67
 30        <activity android:name="com.example.campusform.HomeActivity" />
-30-->E:\AS\CampusForm\app\src\main\AndroidManifest.xml:22:9-50
-30-->E:\AS\CampusForm\app\src\main\AndroidManifest.xml:22:19-47
+30-->D:\Project\CampusForm\app\src\main\AndroidManifest.xml:22:9-50
+30-->D:\Project\CampusForm\app\src\main\AndroidManifest.xml:22:19-47
 31    </application>
 32
 33</manifest>

@@ -27,7 +27,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.example.campusform.CreateQuestionsActivity" />
+        <activity android:name="com.example.campusform.question.CreateQuestionsActivity" />
         <activity android:name="com.example.campusform.HomeActivity" />
     </application>
 
