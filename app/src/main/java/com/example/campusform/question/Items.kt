@@ -37,18 +37,20 @@ class SingleItem(val context: Context) : Item, Checkable {
                 if (!holders.contains(holder)) {
                     holders.add(holder)
                 }
-                holder.qTitle.text = null
+
+                holder.qTitle.hint = "题目内容.."
+                holder.qNum.text = "${position + 1}."
+
                 val question = QuestionData.getQuestion(position)
+                holder.qTitle.text = null
                 question.title?.apply {
                     holder.qTitle.text = SpannableStringBuilder(this)
                 }
-                holder.qTitle.hint = "题目内容.."
                 holder.qTitle.setOnFocusChangeListener { v, hasFocus ->
                     if(!hasFocus){
                         QuestionData.setTitle(position, holder.qTitle.text.toString())
                     }
                 }
-                holder.qNum.text = "${position + 1}."
                 holder.questionContainer.apply {
                     this.removeAllViews()
                     //添加选项
@@ -65,27 +67,6 @@ class SingleItem(val context: Context) : Item, Checkable {
                             }
                         }
                     }
-//                    val view = getChildAt(1)
-//                    view.tv_question_number.visibility = View.INVISIBLE
-//                    view.iv_question_add.visibility = View.VISIBLE
-//                    view.iv_question_sub.setOnClickListener {
-//                        var p = indexOfChild(view)
-//                        removeView(view)
-//                        while (p < childCount) {
-//                            val child = getChildAt(p)
-//                            child.tv_question_number.text = 'A'.plus(p) + "."
-//                            p++
-//                        }
-//                    }
-//                    view.iv_question_add.setOnClickListener {
-//                        view.iv_question_sub.visibility = View.VISIBLE
-//                        view.tv_question_number.text = 'A'.plus(childCount - 1) + "."
-//                        addView(createChildView(this, context))
-//                        it.visibility = View.INVISIBLE
-//                        view.tv_question_number.visibility = View.VISIBLE
-//                        view.et_question_content.hint = "选项内容..."
-//                    }
-//                    this.addView(createChildView(this, context))
                 }
 
             }
@@ -166,29 +147,44 @@ class MultiItem(val context: Context) : Item, Checkable {
                 }
                 holder.qNum.text = "${position + 1}."
                 holder.qTitle.hint = "题目内容.."
-                holder.questionContainer.apply {
-                    getChildAt(0).tv_question_number.text = "A."
-                    getChildAt(0).et_question_content.hint = "选项内容..."
 
-                    val view = getChildAt(1)
-                    view.tv_question_number.visibility = View.INVISIBLE
-                    view.iv_question_add.visibility = View.VISIBLE
-                    view.iv_question_sub.setOnClickListener {
-                        var p = indexOfChild(view)
-                        removeView(view)
-                        while (p < childCount) {
-                            val child = getChildAt(p)
-                            child.tv_question_number.text = 'A'.plus(p) + "."
-                            p++
+                val question = QuestionData.getQuestion(position)
+                holder.qTitle.text = null
+                question.title?.apply {
+                    holder.qTitle.text = SpannableStringBuilder(this)
+                }
+                holder.qTitle.setOnFocusChangeListener { v, hasFocus ->
+                    if(!hasFocus){
+                        QuestionData.setTitle(position, holder.qTitle.text.toString())
+                    }
+                }
+                holder.questionContainer.apply {
+
+                    val question = QuestionData.getQuestion(position)
+                    question.title?.apply {
+                        holder.qTitle.text = SpannableStringBuilder(this)
+                    }
+                    holder.qTitle.setOnFocusChangeListener { v, hasFocus ->
+                        if(!hasFocus){
+                            QuestionData.setTitle(position, holder.qTitle.text.toString())
                         }
                     }
-                    view.iv_question_add.setOnClickListener {
-                        view.iv_question_sub.visibility = View.VISIBLE
-                        view.tv_question_number.text = 'A'.plus(childCount - 1) + "."
+                    holder.questionContainer.apply {
+                        this.removeAllViews()
+                        //添加选项
+                        while (childCount < question.choices.size) {
+                            addView(createChoiceView(this, context, position))
+                        }
                         addView(createChildView(this, context, position))
-                        it.visibility = View.INVISIBLE
-                        view.tv_question_number.visibility = View.VISIBLE
-                        view.et_question_content.hint = "选项内容..."
+                        //设置数据
+                        for (choice in question.choices.withIndex()) {
+                            choice.value?.let {
+                                getChildAt(choice.index).et_question_content.apply {
+                                    text = SpannableStringBuilder(it)
+
+                                }
+                            }
+                        }
                     }
                 }
                 val view =
@@ -267,8 +263,18 @@ class TextItem(val context: Context) : Item, Checkable {
                 holder.cb.setOnCheckedChangeListener { buttonView, isChecked ->
 
                 }
+                holder.qTitle.hint = "题目内容.."
                 holder.qNum.text = "${position + 1}."
-                holder.qTitle.hint = "题目内容..."
+                val question = QuestionData.getQuestion(position)
+                holder.qTitle.text = null
+                question.title?.apply {
+                    holder.qTitle.text = SpannableStringBuilder(this)
+                }
+                holder.qTitle.setOnFocusChangeListener { v, hasFocus ->
+                    if(!hasFocus){
+                        QuestionData.setTitle(position, holder.qTitle.text.toString())
+                    }
+                }
             }
         }
 
@@ -328,8 +334,18 @@ class TenItem(val context: Context) : Item, Checkable {
                 holder.cb.setOnCheckedChangeListener { buttonView, isChecked ->
 
                 }
+                holder.qTitle.hint = "题目内容.."
                 holder.qNum.text = "${position + 1}."
-                holder.qTitle.hint = "题目内容..."
+                val question = QuestionData.getQuestion(position)
+                holder.qTitle.text = null
+                question.title?.apply {
+                    holder.qTitle.text = SpannableStringBuilder(this)
+                }
+                holder.qTitle.setOnFocusChangeListener { v, hasFocus ->
+                    if(!hasFocus){
+                        QuestionData.setTitle(position, holder.qTitle.text.toString())
+                    }
+                }
                 holder.radioGroup.setOnCheckedChangeListener { group, checkedId ->
                     when (checkedId) {
                         R.id.rb_1 -> {
@@ -403,8 +419,18 @@ class HundredItem(val context: Context) : Item, Checkable {
                 holder.cb.setOnCheckedChangeListener { buttonView, isChecked ->
 
                 }
+                holder.qTitle.hint = "题目内容.."
                 holder.qNum.text = "${position + 1}."
-                holder.qTitle.hint = "题目内容..."
+                val question = QuestionData.getQuestion(position)
+                holder.qTitle.text = null
+                question.title?.apply {
+                    holder.qTitle.text = SpannableStringBuilder(this)
+                }
+                holder.qTitle.setOnFocusChangeListener { v, hasFocus ->
+                    if(!hasFocus){
+                        QuestionData.setTitle(position, holder.qTitle.text.toString())
+                    }
+                }
                 holder.seekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
                     override fun onProgressChanged(
                         seekBar: SeekBar?,
@@ -477,30 +503,43 @@ class SortItem(val context: Context) : Item, Checkable {
                 }
                 holder.qTitle.hint = "题目内容.."
                 holder.qNum.text = "${position + 1}."
+                val question = QuestionData.getQuestion(position)
+                holder.qTitle.text = null
+                question.title?.apply {
+                    holder.qTitle.text = SpannableStringBuilder(this)
+                }
+                holder.qTitle.setOnFocusChangeListener { v, hasFocus ->
+                    if(!hasFocus){
+                        QuestionData.setTitle(position, holder.qTitle.text.toString())
+                    }
+                }
                 holder.questionContainer.apply {
 
-                    getChildAt(0).tv_question_number.text = "A."
-                    getChildAt(0).et_question_content.hint = "选项内容..."
-
-                    val view = getChildAt(1)
-                    view.tv_question_number.visibility = View.INVISIBLE
-                    view.iv_question_add.visibility = View.VISIBLE
-                    view.iv_question_sub.setOnClickListener {
-                        var p = indexOfChild(view)
-                        removeView(view)
-                        while (p < childCount) {
-                            val child = getChildAt(p)
-                            child.tv_question_number.text = 'A'.plus(p) + "."
-                            p++
+                    val question = QuestionData.getQuestion(position)
+                    question.title?.apply {
+                        holder.qTitle.text = SpannableStringBuilder(this)
+                    }
+                    holder.qTitle.setOnFocusChangeListener { v, hasFocus ->
+                        if(!hasFocus){
+                            QuestionData.setTitle(position, holder.qTitle.text.toString())
                         }
                     }
-                    view.iv_question_add.setOnClickListener {
-                        view.iv_question_sub.visibility = View.VISIBLE
-                        view.tv_question_number.text = 'A'.plus(childCount - 1) + "."
+                    holder.questionContainer.apply {
+                        this.removeAllViews()
+                        //添加选项
+                        while (childCount < question.choices.size) {
+                            addView(createChoiceView(this, context, position))
+                        }
                         addView(createChildView(this, context, position))
-                        it.visibility = View.INVISIBLE
-                        view.tv_question_number.visibility = View.VISIBLE
-                        view.et_question_content.hint = "选项内容..."
+                        //设置数据
+                        for (choice in question.choices.withIndex()) {
+                            choice.value?.let {
+                                getChildAt(choice.index).et_question_content.apply {
+                                    text = SpannableStringBuilder(it)
+
+                                }
+                            }
+                        }
                     }
                 }
             }
