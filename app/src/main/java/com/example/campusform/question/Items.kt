@@ -1,4 +1,4 @@
-package com.example.campusform
+package com.example.campusform.question
 
 import android.content.Context
 import android.graphics.Color
@@ -8,6 +8,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.recyclerview.widget.RecyclerView
+import com.example.campusform.Item
+import com.example.campusform.ItemController
+import com.example.campusform.R
 import kotlinx.android.synthetic.main.item_new_questions_hundred.view.*
 import kotlinx.android.synthetic.main.item_new_questions_multi_select.view.*
 import kotlinx.android.synthetic.main.item_new_questions_single_select.view.*
@@ -326,6 +329,7 @@ class SortItem(val context: Context) : Item {
         val questionContainer: LinearLayout
     ) : QuestionViewHolder(itemView)
 }
+
 enum class QuestionType {
     SINGLE_QUESTION,
     MULTI_QUESTION,
