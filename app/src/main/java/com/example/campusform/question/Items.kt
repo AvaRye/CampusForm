@@ -45,7 +45,7 @@ class SingleItem(val context: Context) : Item, Checkable {
                 holder.qTitle.addTextChangedListener(object : TextWatcher {
                     override fun afterTextChanged(p0: Editable?) {
                         question.title = p0.toString()
-                        QuestionData.updateQuestion(position,question)
+                        QuestionData.updateQuestion(position, question)
                     }
 
                     override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
@@ -60,7 +60,7 @@ class SingleItem(val context: Context) : Item, Checkable {
                     this.removeAllViews()
                     //添加选项
                     while (childCount < question.choices.size) {
-                        addView(createChoiceView(this, context,position))
+                        addView(createChoiceView(this, context, position))
                     }
                     addView(createChildView(this, context, position))
                     //设置数据
@@ -68,29 +68,7 @@ class SingleItem(val context: Context) : Item, Checkable {
                         choice.value?.let {
                             getChildAt(choice.index).et_question_content.apply {
                                 text = SpannableStringBuilder(it)
-                                addTextChangedListener(object : TextWatcher {
-                                    override fun afterTextChanged(p0: Editable?) {
-                                        question.choices[choice.index] = p0.toString()
-                                        QuestionData.updateQuestion(position,question)
-                                    }
 
-                                    override fun beforeTextChanged(
-                                        p0: CharSequence?,
-                                        p1: Int,
-                                        p2: Int,
-                                        p3: Int
-                                    ) {
-                                    }
-
-                                    override fun onTextChanged(
-                                        p0: CharSequence?,
-                                        p1: Int,
-                                        p2: Int,
-                                        p3: Int
-                                    ) {
-                                    }
-
-                                })
                             }
                         }
                     }
@@ -579,6 +557,34 @@ fun createChoiceView(root: ViewGroup, context: Context, questionNum: Int): View 
     view.iv_question_add.visibility = View.INVISIBLE
     view.tv_question_number.text = 'A'.plus(root.childCount) + "."
     view.et_question_content.hint = "选项内容..."
+    view.et_question_content.addTextChangedListener(object : TextWatcher {
+        override fun afterTextChanged(p0: Editable?) {
+            val position = root.indexOfChild(view)
+            QuestionData.data[questionNum].choices[position] = p0.toString()
+            Log.d("EditText!", "after")
+        }
+
+        override fun beforeTextChanged(
+            p0: CharSequence?,
+            p1: Int,
+            p2: Int,
+            p3: Int
+        ) {
+            Log.d("EditText!", "before")
+
+        }
+
+        override fun onTextChanged(
+            p0: CharSequence?,
+            p1: Int,
+            p2: Int,
+            p3: Int
+        ) {
+            Log.d("EditText!", "on")
+
+        }
+
+    })
     view.iv_question_sub.setOnClickListener {
         var position = root.indexOfChild(view)
         QuestionData.removeChoice(questionNum, position)
@@ -598,9 +604,7 @@ fun createChoiceView(root: ViewGroup, context: Context, questionNum: Int): View 
         it.visibility = View.INVISIBLE
         view.tv_question_number.visibility = View.VISIBLE
         view.iv_question_sub.visibility = View.VISIBLE
-        view.tv_question_number.text = 'A'.plus(root.childCount - 1) + "."
-        root.addView(createChildView(root, context,questionNum))
-        view.et_question_content.hint = "选项内容..."
+        root.addView(createChildView(root, context, questionNum))
     }
     return view
 }
@@ -611,6 +615,8 @@ fun createChildView(root: ViewGroup, context: Context, questionNum: Int): View {
         LayoutInflater.from(context).inflate(R.layout.layout_question_item, root, false)
     view.tv_question_number.visibility = View.INVISIBLE
     view.iv_question_add.visibility = View.VISIBLE
+    view.et_question_content.isFocusable = false
+    view.et_question_content.isFocusableInTouchMode = false
     view.iv_question_sub.setOnClickListener {
         var position = root.indexOfChild(view)
         QuestionData.removeChoice(questionNum, position)
@@ -629,10 +635,40 @@ fun createChildView(root: ViewGroup, context: Context, questionNum: Int): View {
 
         view.iv_question_sub.visibility = View.VISIBLE
         view.tv_question_number.text = 'A'.plus(root.childCount - 1) + "."
-        root.addView(createChildView(root, context,questionNum))
+        root.addView(createChildView(root, context, questionNum))
         it.visibility = View.INVISIBLE
         view.tv_question_number.visibility = View.VISIBLE
         view.et_question_content.hint = "选项内容..."
+        view.et_question_content.isFocusable = true
+        view.et_question_content.isFocusableInTouchMode = true
+        view.et_question_content.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(p0: Editable?) {
+                val position = root.indexOfChild(view)
+                QuestionData.data[questionNum].choices[position] = p0.toString()
+                Log.d("EditText!", "after")
+            }
+
+            override fun beforeTextChanged(
+                p0: CharSequence?,
+                p1: Int,
+                p2: Int,
+                p3: Int
+            ) {
+                Log.d("EditText!", "before")
+
+            }
+
+            override fun onTextChanged(
+                p0: CharSequence?,
+                p1: Int,
+                p2: Int,
+                p3: Int
+            ) {
+                Log.d("EditText!", "on")
+
+            }
+
+        })
     }
     return view
 }
