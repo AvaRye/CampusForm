@@ -3,6 +3,7 @@ package com.example.campusform.question
 import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -21,30 +22,56 @@ import kotlinx.android.synthetic.main.layout_question_item.view.*
 import kotlinx.android.synthetic.main.layout_question_item_sort.view.et_question_content
 
 open class QuestionViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
-class SingleItem(val context: Context) : Item {
+class SingleItem(val context: Context) : Item, Checkable {
 
 //    override fun areItemsTheSame(newItem: Item): Boolean {
 //        return newItem is SingleItem
 //    }
 
-    companion object Controller : ItemController {
+    companion object Controller : ItemController, Checkable {
         override fun onBindViewHolder(holder: RecyclerView.ViewHolder, item: Item, position: Int) {
             if (holder is SingleViewHolder && item is SingleItem) {
+                if (!holders.contains(holder)) {
+                    holders.add(holder)
+                }
                 holder.qTitle.hint = "题目内容.."
                 holder.qNum.text = "${position + 1}."
-
                 holder.questionContainer.apply {
                     getChildAt(0).tv_question_number.text = "A."
                     getChildAt(0).et_question_content.hint = "选项内容"
-                    this.addView(createChildView(this, context))
+
+                    val view = getChildAt(1)
+                    view.tv_question_number.visibility = View.INVISIBLE
+                    view.iv_question_add.visibility = View.VISIBLE
+                    view.iv_question_sub.setOnClickListener {
+                        var p = indexOfChild(view)
+                        removeView(view)
+                        while (p < childCount) {
+                            val child = getChildAt(p)
+                            child.tv_question_number.text = 'A'.plus(p) + "."
+                            p++
+                        }
+                    }
+                    view.iv_question_add.setOnClickListener {
+                        view.iv_question_sub.visibility = View.VISIBLE
+                        view.tv_question_number.text = 'A'.plus(childCount - 1) + "."
+                        addView(createChildView(this, context))
+                        it.visibility = View.INVISIBLE
+                        view.tv_question_number.visibility = View.VISIBLE
+                        view.et_question_content.hint = "选项内容..."
+                    }
+//                    this.addView(createChildView(this, context))
                 }
+
             }
+            Log.d("recycler", "onBindViewHolder position:$position itemId:${holder.itemId} \n$holder")
         }
 
         override fun onCreateViewHolder(parent: ViewGroup): RecyclerView.ViewHolder {
             val view = LayoutInflater
                 .from(parent.context)
                 .inflate(R.layout.item_new_questions_single_select, parent, false)
+            Log.d("recycler", "onCreateViewHolder")
             return SingleViewHolder(
                 view,
                 view.cb_item_single_select,
@@ -54,6 +81,15 @@ class SingleItem(val context: Context) : Item {
             )
         }
 
+        private val holders: ArrayList<SingleViewHolder> = ArrayList()
+
+        override fun check(isChecked: Boolean) {
+            for (holder in holders) {
+                holder.cb.isChecked = isChecked
+            }
+        }
+
+
     }
 
     class SingleViewHolder(
@@ -62,20 +98,25 @@ class SingleItem(val context: Context) : Item {
         val questionContainer: LinearLayout,
         val qNum: TextView,
         val qTitle: EditText
-    ) :
-        QuestionViewHolder(itemView)
+    ) : QuestionViewHolder(itemView)
 
-    override val controller: ItemController
-        get() = Controller
+    override val controller: ItemController = Controller
+
+
+    override fun check(isChecked: Boolean) {
+        if (controller is Checkable) {
+            controller.check(isChecked)
+        }
+    }
 
 }
 
-class MultiItem(val context: Context) : Item {
+class MultiItem(val context: Context) : Item, Checkable {
 //    override fun areItemsTheSame(newItem: Item): Boolean {
 //        return newItem is MultiItem
 //    }
 
-    companion object Controller : ItemController {
+    companion object Controller : ItemController, Checkable {
         override fun onCreateViewHolder(parent: ViewGroup): RecyclerView.ViewHolder {
             val view = LayoutInflater
                 .from(parent.context)
@@ -92,13 +133,35 @@ class MultiItem(val context: Context) : Item {
 
         override fun onBindViewHolder(holder: RecyclerView.ViewHolder, item: Item, position: Int) {
             if (holder is MultiViewHolder && item is MultiItem) {
+                if (!holders.contains(holder)) {
+                    holders.add(holder)
+                }
                 holder.qNum.text = "${position + 1}."
                 holder.qTitle.hint = "题目内容.."
                 holder.questionContainer.apply {
                     getChildAt(0).tv_question_number.text = "A."
                     getChildAt(0).et_question_content.hint = "选项内容..."
 
-                    this.addView(createChildView(this, context))
+                    val view = getChildAt(1)
+                    view.tv_question_number.visibility = View.INVISIBLE
+                    view.iv_question_add.visibility = View.VISIBLE
+                    view.iv_question_sub.setOnClickListener {
+                        var p = indexOfChild(view)
+                        removeView(view)
+                        while (p < childCount) {
+                            val child = getChildAt(p)
+                            child.tv_question_number.text = 'A'.plus(p) + "."
+                            p++
+                        }
+                    }
+                    view.iv_question_add.setOnClickListener {
+                        view.iv_question_sub.visibility = View.VISIBLE
+                        view.tv_question_number.text = 'A'.plus(childCount - 1) + "."
+                        addView(createChildView(this, context))
+                        it.visibility = View.INVISIBLE
+                        view.tv_question_number.visibility = View.VISIBLE
+                        view.et_question_content.hint = "选项内容..."
+                    }
                 }
                 val view =
                     LayoutInflater.from(item.context).inflate(R.layout.popup_multi_setting, null)
@@ -113,6 +176,14 @@ class MultiItem(val context: Context) : Item {
             }
         }
 
+        private val holders: ArrayList<MultiViewHolder> = ArrayList()
+
+        override fun check(isChecked: Boolean) {
+            for (holder in holders) {
+                holder.cb.isChecked = isChecked
+            }
+        }
+
     }
 
     class MultiViewHolder(
@@ -124,19 +195,29 @@ class MultiItem(val context: Context) : Item {
         val qTitle: EditText
     ) : QuestionViewHolder(itemView)
 
-    override val controller: ItemController
-        get() = Controller
+    override val controller: ItemController = Controller
+
+    override fun check(isChecked: Boolean) {
+        if (controller is Checkable) {
+            controller.check(isChecked)
+        }
+    }
 }
 
-class TextItem(val context: Context) : Item {
+class TextItem(val context: Context) : Item, Checkable {
 //    override fun areItemsTheSame(newItem: Item): Boolean {
 //        return newItem is TextItem
 //    }
 
-    override val controller: ItemController
-        get() = Controller
+    override val controller: ItemController = Controller
 
-    companion object Controller : ItemController {
+    override fun check(isChecked: Boolean) {
+        if (controller is Checkable) {
+            controller.check(isChecked)
+        }
+    }
+
+    companion object Controller : ItemController, Checkable {
         override fun onCreateViewHolder(parent: ViewGroup): RecyclerView.ViewHolder {
             val view = LayoutInflater
                 .from(parent.context)
@@ -152,6 +233,9 @@ class TextItem(val context: Context) : Item {
 
         override fun onBindViewHolder(holder: RecyclerView.ViewHolder, item: Item, position: Int) {
             if (holder is TextViewHolder && item is TextItem) {
+                if (!holders.contains(holder)) {
+                    holders.add(holder)
+                }
                 holder.cb.setOnCheckedChangeListener { buttonView, isChecked ->
 
                 }
@@ -159,6 +243,15 @@ class TextItem(val context: Context) : Item {
                 holder.qTitle.hint = "题目内容..."
             }
         }
+
+        private val holders: ArrayList<TextViewHolder> = ArrayList()
+
+        override fun check(isChecked: Boolean) {
+            for (holder in holders) {
+                holder.cb.isChecked = isChecked
+            }
+        }
+
     }
 
     class TextViewHolder(
@@ -171,15 +264,19 @@ class TextItem(val context: Context) : Item {
 
 }
 
-class TenItem(val context: Context) : Item {
-//    override fun areItemsTheSame(newItem: Item): Boolean {
+class TenItem(val context: Context) : Item, Checkable {
+    //    override fun areItemsTheSame(newItem: Item): Boolean {
 //        return newItem is TenItem
 //    }
+    override val controller: ItemController = Controller
 
-    override val controller: ItemController
-        get() = Controller
+    override fun check(isChecked: Boolean) {
+        if (controller is Checkable) {
+            controller.check(isChecked)
+        }
+    }
 
-    companion object Controller : ItemController {
+    companion object Controller : ItemController, Checkable {
         override fun onCreateViewHolder(parent: ViewGroup): RecyclerView.ViewHolder {
             val view = LayoutInflater
                 .from(parent.context)
@@ -197,6 +294,9 @@ class TenItem(val context: Context) : Item {
 
         override fun onBindViewHolder(holder: RecyclerView.ViewHolder, item: Item, position: Int) {
             if (holder is TenViewHolder && item is TenItem) {
+                if (!holders.contains(holder)) {
+                    holders.add(holder)
+                }
                 holder.cb.setOnCheckedChangeListener { buttonView, isChecked ->
 
                 }
@@ -214,6 +314,15 @@ class TenItem(val context: Context) : Item {
                 }
             }
         }
+
+        private val holders: ArrayList<TenViewHolder> = ArrayList()
+
+        override fun check(isChecked: Boolean) {
+            for (holder in holders) {
+                holder.cb.isChecked = isChecked
+            }
+        }
+
     }
 
     class TenViewHolder(
@@ -227,16 +336,22 @@ class TenItem(val context: Context) : Item {
     ) : QuestionViewHolder(itemView)
 }
 
-class HundredItem(val context: Context) : Item {
+class HundredItem(val context: Context) : Item, Checkable {
 //    override fun areItemsTheSame(newItem: Item): Boolean {
 //        return newItem is HundredItem
 //    }
 
-    override val controller: ItemController
-        get() = Controller
+    override val controller: ItemController = Controller
 
-    companion object Controller : ItemController {
+    override fun check(isChecked: Boolean) {
+        if (controller is Checkable) {
+            controller.check(isChecked)
+        }
+    }
+
+    companion object Controller : ItemController, Checkable {
         override fun onCreateViewHolder(parent: ViewGroup): RecyclerView.ViewHolder {
+
             val view = LayoutInflater
                 .from(parent.context)
                 .inflate(R.layout.item_new_questions_hundred, parent, false)
@@ -254,6 +369,9 @@ class HundredItem(val context: Context) : Item {
 
         override fun onBindViewHolder(holder: RecyclerView.ViewHolder, item: Item, position: Int) {
             if (holder is HundredViewHolder && item is HundredItem) {
+                if (!holders.contains(holder)) {
+                    holders.add(holder)
+                }
                 holder.cb.setOnCheckedChangeListener { buttonView, isChecked ->
 
                 }
@@ -277,6 +395,15 @@ class HundredItem(val context: Context) : Item {
                 })
             }
         }
+
+        private val holders: ArrayList<HundredViewHolder> = ArrayList()
+
+        override fun check(isChecked: Boolean) {
+            for (holder in holders) {
+                holder.cb.isChecked = isChecked
+            }
+        }
+
     }
 
     class HundredViewHolder(
@@ -292,15 +419,13 @@ class HundredItem(val context: Context) : Item {
 
 }
 
-class SortItem(val context: Context) : Item {
+class SortItem(val context: Context) : Item, Checkable {
 //    override fun areItemsTheSame(newItem: Item): Boolean {
 //        return newItem is SortItem
 //    }
 
-    override val controller: ItemController
-        get() = Controller
 
-    companion object Controller : ItemController {
+    companion object Controller : ItemController, Checkable {
         override fun onCreateViewHolder(parent: ViewGroup): RecyclerView.ViewHolder {
             val view = LayoutInflater
                 .from(parent.context)
@@ -316,6 +441,9 @@ class SortItem(val context: Context) : Item {
 
         override fun onBindViewHolder(holder: RecyclerView.ViewHolder, item: Item, position: Int) {
             if (holder is SortViewHolder && item is SortItem) {
+                if (!holders.contains(holder)) {
+                    holders.add(holder)
+                }
                 holder.cb.setOnCheckedChangeListener { _, isChecked ->
 
                 }
@@ -326,9 +454,45 @@ class SortItem(val context: Context) : Item {
                     getChildAt(0).tv_question_number.text = "A."
                     getChildAt(0).et_question_content.hint = "选项内容..."
 
-                    this.addView(createChildView(this, context))
+                    val view = getChildAt(1)
+                    view.tv_question_number.visibility = View.INVISIBLE
+                    view.iv_question_add.visibility = View.VISIBLE
+                    view.iv_question_sub.setOnClickListener {
+                        var p = indexOfChild(view)
+                        removeView(view)
+                        while (p < childCount) {
+                            val child = getChildAt(p)
+                            child.tv_question_number.text = 'A'.plus(p) + "."
+                            p++
+                        }
+                    }
+                    view.iv_question_add.setOnClickListener {
+                        view.iv_question_sub.visibility = View.VISIBLE
+                        view.tv_question_number.text = 'A'.plus(childCount - 1) + "."
+                        addView(createChildView(this, context))
+                        it.visibility = View.INVISIBLE
+                        view.tv_question_number.visibility = View.VISIBLE
+                        view.et_question_content.hint = "选项内容..."
+                    }
                 }
             }
+        }
+
+        private val holders: ArrayList<SortViewHolder> = ArrayList()
+
+        override fun check(isChecked: Boolean) {
+            for (holder in holders) {
+                holder.cb.isChecked = isChecked
+            }
+        }
+
+    }
+
+    override val controller: ItemController = Controller
+
+    override fun check(isChecked: Boolean) {
+        if (controller is Checkable) {
+            controller.check(isChecked)
         }
     }
 
@@ -338,7 +502,9 @@ class SortItem(val context: Context) : Item {
         val questionContainer: LinearLayout,
         val qNum: TextView,
         val qTitle: EditText
-    ) : QuestionViewHolder(itemView)
+    ) : QuestionViewHolder(itemView) {
+
+    }
 }
 
 enum class QuestionType {

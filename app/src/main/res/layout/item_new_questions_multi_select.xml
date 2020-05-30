@@ -77,6 +77,7 @@
             android:paddingLeft="20dp">
 
             <include layout="@layout/layout_question_item" />
+            <include layout="@layout/layout_question_item" />
 
 
         </LinearLayout>

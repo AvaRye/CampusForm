@@ -1,6 +1,7 @@
 package com.example.campusform.question
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
@@ -12,11 +13,12 @@ import com.example.campusform.ItemManager
 import com.example.campusform.R
 import kotlinx.android.synthetic.main.activity_new.*
 import kotlinx.android.synthetic.main.item_toolbar.view.*
+import org.jetbrains.anko.sdk27.coroutines.onCheckedChange
 
 class CreateQuestionsActivity : AppCompatActivity() {
     private var type = QuestionType.SINGLE_QUESTION
 
-    //    private val itemList = arrayListOf<Item>()
+    private val itemSelectedList = arrayListOf<Item>()
     private val arrayList = arrayListOf("单选题", "多选题", "文本题", "十分量表题", "百分量表题", "排序题")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,26 +53,41 @@ class CreateQuestionsActivity : AppCompatActivity() {
                 }
             }
         }
-//        adapter = QuestionAdapter(
-//            this,
-//            arrayListOf()
-//        )
-//        adapter.addQuestion(QuestionAdapter.Companion.QuestionType.SINGLE_QUESTION)
-//        rv_new_questions.adapter = adapter
-//        itemList.add(ItemFactory.createItem(type,this))
 
         val itemManager = ItemManager()
         rv_new_questions.adapter = ItemAdapter(itemManager)
         rv_new_questions.layoutManager = LinearLayoutManager(this)
+
         itemManager.add(createItem())
         iv_new_add.setOnClickListener {
-//            itemList.add(ItemFactory.createItem(type,this))
             itemManager.add(createItem())
         }
         iv_new_remove.setOnClickListener {
 //            adapter.delete()
         }
+        cb_new_all.onCheckedChange { buttonView, isChecked ->
+            if(isChecked){
+                var num = 0;
+                val snapshot = itemManager.itemListSnapshot
+                for(item in snapshot){
+                    if(item is Checkable){
+
+                        item.check(isChecked)
+                    }
+                }
+                itemSelectedList.clear()
+                itemSelectedList.addAll(snapshot)
+            }else{
+                val snapshot = itemManager.itemListSnapshot
+                for(item in snapshot){
+                    if(item is Checkable){
+                        item.check(isChecked)
+                    }
+                }
+                itemSelectedList.clear()
+            }
+        }
     }
 
-    private inline fun createItem(): Item = ItemFactory.createItem(type, this)
+    private fun createItem(): Item = ItemFactory.createItem(type, this)
 }
