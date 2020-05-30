@@ -9,36 +9,78 @@
     app:cardElevation="1dp">
 
     <LinearLayout
+        android:paddingEnd="20dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="horizontal"
-        android:padding="8dp">
-
-        <CheckBox
-            android:id="@+id/cb_item_multi_select"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+        android:orientation="vertical"
+        android:paddingRight="20dp">
 
         <LinearLayout
-            android:id="@+id/ll_questions_multi_container"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical">
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:padding="8dp">
 
-            <include layout="@layout/layout_question_item" />
+            <CheckBox
+                android:id="@+id/cb_item_multi_select"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
 
-            <include layout="@layout/layout_question_item" />
 
+            <TextView
+                android:id="@+id/tv_question_multi_number"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:text="1."
+                android:textSize="18sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="24dp"
+                android:text="多选题"
+                android:textSize="18sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <EditText
+                android:id="@+id/et_question_multi_content"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginLeft="10dp"
+                android:background="@drawable/edit_background"
+                android:hint="题目内容..."
+                android:padding="8dp"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/iv_question_add"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/iv_item_multi_setting"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginStart="6dp"
+                android:layout_marginLeft="6dp"
+                android:src="@drawable/ic_list" />
         </LinearLayout>
 
-        <ImageView
-            android:id="@+id/iv_item_multi_setting"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_marginStart="6dp"
-            android:layout_marginLeft="6dp"
-            android:src="@drawable/ic_list" />
+        <LinearLayout
+            android:paddingStart="20dp"
+            android:id="@+id/ll_questions_multi_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingLeft="20dp">
+
+            <include layout="@layout/layout_question_item" />
+
+
+        </LinearLayout>
     </LinearLayout>
+
 
 </androidx.cardview.widget.CardView>

@@ -30,12 +30,12 @@ class SingleItem(val context: Context) : Item {
     companion object Controller : ItemController {
         override fun onBindViewHolder(holder: RecyclerView.ViewHolder, item: Item, position: Int) {
             if (holder is SingleViewHolder && item is SingleItem) {
-                holder.questionContainer.apply {
-                    getChildAt(0).tv_question_number.text = "${position + 1}."
-                    getChildAt(0).et_question_content.hint = "题目内容"
-                    getChildAt(1).tv_question_number.text = "A."
-                    getChildAt(1).et_question_content.hint = "选项内容"
+                holder.qTitle.hint = "题目内容.."
+                holder.qNum.text = "${position + 1}."
 
+                holder.questionContainer.apply {
+                    getChildAt(0).tv_question_number.text = "A."
+                    getChildAt(0).et_question_content.hint = "选项内容"
                     this.addView(createChildView(this, context))
                 }
             }
@@ -48,13 +48,21 @@ class SingleItem(val context: Context) : Item {
             return SingleViewHolder(
                 view,
                 view.cb_item_single_select,
-                view.ll_questions_single_container
+                view.ll_questions_single_container,
+                view.tv_question_single_number,
+                view.et_question_single_content
             )
         }
 
     }
 
-    class SingleViewHolder(itemView: View, val cb: CheckBox, val questionContainer: LinearLayout) :
+    class SingleViewHolder(
+        itemView: View,
+        val cb: CheckBox,
+        val questionContainer: LinearLayout,
+        val qNum: TextView,
+        val qTitle: EditText
+    ) :
         QuestionViewHolder(itemView)
 
     override val controller: ItemController
@@ -76,17 +84,19 @@ class MultiItem(val context: Context) : Item {
                 view,
                 view.cb_item_multi_select,
                 view.ll_questions_multi_container,
-                view.iv_item_multi_setting
+                view.iv_item_multi_setting,
+                view.tv_question_multi_number,
+                view.et_question_multi_content
             )
         }
 
         override fun onBindViewHolder(holder: RecyclerView.ViewHolder, item: Item, position: Int) {
             if (holder is MultiViewHolder && item is MultiItem) {
+                holder.qNum.text = "${position + 1}."
+                holder.qTitle.hint = "题目内容.."
                 holder.questionContainer.apply {
-                    getChildAt(0).tv_question_number.text = "${position + 1}."
-                    getChildAt(0).et_question_content.hint = "题目内容..."
-                    getChildAt(1).tv_question_number.text = "A."
-                    getChildAt(1).et_question_content.hint = "选项内容..."
+                    getChildAt(0).tv_question_number.text = "A."
+                    getChildAt(0).et_question_content.hint = "选项内容..."
 
                     this.addView(createChildView(this, context))
                 }
@@ -109,7 +119,9 @@ class MultiItem(val context: Context) : Item {
         itemView: View,
         val cb: CheckBox,
         val questionContainer: LinearLayout,
-        val setting: ImageView
+        val setting: ImageView,
+        val qNum: TextView,
+        val qTitle: EditText
     ) : QuestionViewHolder(itemView)
 
     override val controller: ItemController
@@ -296,26 +308,23 @@ class SortItem(val context: Context) : Item {
             return SortViewHolder(
                 view,
                 view.cb_item_sort_select,
-                view.ll_questions_sort_container
+                view.ll_questions_sort_container,
+                view.tv_question_sort_number,
+                view.et_question_sort_content
             )
         }
 
         override fun onBindViewHolder(holder: RecyclerView.ViewHolder, item: Item, position: Int) {
             if (holder is SortViewHolder && item is SortItem) {
                 holder.cb.setOnCheckedChangeListener { _, isChecked ->
-                    //                if (isChecked) {
-                    //                    selectedQuestions.add(position)
-                    //                } else {
-                    //                    selectedQuestions.remove(position)
-                    //                }
-                    //            }
 
                 }
+                holder.qTitle.hint = "题目内容.."
+                holder.qNum.text = "${position + 1}."
                 holder.questionContainer.apply {
-                    getChildAt(0).tv_question_number.text = "${position + 1}."
-                    getChildAt(0).et_question_content.hint = "题目内容..."
-                    getChildAt(1).tv_question_number.text = "A."
-                    getChildAt(1).et_question_content.hint = "选项内容..."
+
+                    getChildAt(0).tv_question_number.text = "A."
+                    getChildAt(0).et_question_content.hint = "选项内容..."
 
                     this.addView(createChildView(this, context))
                 }
@@ -326,7 +335,9 @@ class SortItem(val context: Context) : Item {
     class SortViewHolder(
         itemView: View,
         val cb: CheckBox,
-        val questionContainer: LinearLayout
+        val questionContainer: LinearLayout,
+        val qNum: TextView,
+        val qTitle: EditText
     ) : QuestionViewHolder(itemView)
 }
 
@@ -338,83 +349,6 @@ enum class QuestionType {
     HUNDRED_QUESTION,
     SORT_QUESTION
 }
-//
-//class QuestionAdapter(private val context: Context, private val typeList: ArrayList<QuestionType>) :
-//    RecyclerView.Adapter<QuestionViewHolder>() {
-//    companion object {
-
-//    }
-//
-//    private val selectedQuestions = ArrayList<Int>()
-//    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): QuestionViewHolder {
-//        when (viewType) {
-//            3 -> {//十分题
-//
-//            }
-//            4 -> {//百分题
-//
-//            }
-//            5 -> {//排序题
-//
-//            }
-//        }
-//        val view = LayoutInflater
-//            .from(parent.context)
-//            .inflate(R.layout.item_new_questions_single_select, parent, false)
-//        return SingleViewHolder(
-//            view,
-//            view.cb_item_single_select,
-//            view.ll_questions_single_container
-//        )
-//    }
-//
-//    override fun getItemCount(): Int {
-//        return typeList.size
-//    }
-//
-//    override fun onBindViewHolder(holder: QuestionViewHolder, position: Int) {
-//        when (holder) {
-//            is TenViewHolder -> {
-//
-//            }
-//            is HundredViewHolder -> {
-//
-//            }
-//            is SortViewHolder -> {
-//
-//            }
-//        }
-//    }
-//
-//    override fun getItemViewType(position: Int): Int {
-//        return when (typeList[position]) {
-//            QuestionType.SINGLE_QUESTION -> 0
-//            QuestionType.MULTI_QUESTION -> 1
-//            QuestionType.TEXT_QUESTION -> 2
-//            QuestionType.TEN_QUESTION -> 3
-//            QuestionType.HUND_QUESTION -> 4
-//            QuestionType.SORT_QUESTION -> 5
-//        }
-//    }
-//
-//    fun addQuestion(type: QuestionType) {
-//        typeList.add(type)
-//        notifyItemInserted(typeList.size - 1)
-//    }
-//
-//    //    fun delete(){
-////        for(position in selectedQuestions){
-////            deleteQuestion(position)
-////        }
-////        notifyDataSetChanged()
-////
-////    }
-//    private fun deleteQuestion(position: Int) {
-//        typeList.removeAt(position)
-//    }
-//
-//
-//}
 
 @Synchronized
 fun createChildView(root: ViewGroup, context: Context): View {
@@ -427,13 +361,13 @@ fun createChildView(root: ViewGroup, context: Context): View {
         root.removeView(view)
         while (position < root.childCount) {
             val child = root.getChildAt(position)
-            child.tv_question_number.text = 'A'.plus(position - 1) + "."
+            child.tv_question_number.text = 'A'.plus(position) + "."
             position++
         }
     }
     view.iv_question_add.setOnClickListener {
         view.iv_question_sub.visibility = View.VISIBLE
-        view.tv_question_number.text = 'A'.plus(root.childCount - 2) + "."
+        view.tv_question_number.text = 'A'.plus(root.childCount - 1) + "."
         root.addView(createChildView(root, context))
         it.visibility = View.INVISIBLE
         view.tv_question_number.visibility = View.VISIBLE

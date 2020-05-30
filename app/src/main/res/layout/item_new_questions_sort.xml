@@ -9,24 +9,63 @@
     app:cardElevation="1dp">
 
     <LinearLayout
-        android:padding="8dp"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingEnd="20dp"
+        android:paddingRight="20dp">
 
-        <CheckBox
-            android:id="@+id/cb_item_sort_select"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:padding="8dp">
+
+            <CheckBox
+                android:id="@+id/cb_item_sort_select"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+
+            <TextView
+                android:id="@+id/tv_question_sort_number"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:text="1."
+                android:textSize="18sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="排序题"
+                android:textSize="18sp" />
+
+
+            <EditText
+                android:id="@+id/et_question_sort_content"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_weight="1"
+                android:background="@drawable/edit_background"
+                android:hint="题目内容..."
+                android:padding="8dp"
+                android:textSize="14sp" />
+
+        </LinearLayout>
+
 
         <LinearLayout
             android:id="@+id/ll_questions_sort_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingStart="20dp"
+            android:paddingLeft="20dp">
 
             <include layout="@layout/layout_question_item" />
 
-            <include layout="@layout/layout_question_item" />
 
         </LinearLayout>
     </LinearLayout>
