@@ -37,24 +37,17 @@ class SingleItem(val context: Context) : Item, Checkable {
                 if (!holders.contains(holder)) {
                     holders.add(holder)
                 }
+                holder.qTitle.text = null
                 val question = QuestionData.getQuestion(position)
                 question.title?.apply {
                     holder.qTitle.text = SpannableStringBuilder(this)
                 }
                 holder.qTitle.hint = "题目内容.."
-                holder.qTitle.addTextChangedListener(object : TextWatcher {
-                    override fun afterTextChanged(p0: Editable?) {
-                        question.title = p0.toString()
-                        QuestionData.updateQuestion(position, question)
+                holder.qTitle.setOnFocusChangeListener { v, hasFocus ->
+                    if(!hasFocus){
+                        QuestionData.setTitle(position, holder.qTitle.text.toString())
                     }
-
-                    override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                    }
-
-                    override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                    }
-
-                })
+                }
                 holder.qNum.text = "${position + 1}."
                 holder.questionContainer.apply {
                     this.removeAllViews()
