@@ -3,6 +3,9 @@ package com.example.campusform.question
 import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
+import android.text.Editable
+import android.text.SpannableStringBuilder
+import android.text.TextWatcher
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -34,37 +37,91 @@ class SingleItem(val context: Context) : Item, Checkable {
                 if (!holders.contains(holder)) {
                     holders.add(holder)
                 }
+                val question = QuestionData.getQuestion(position)
+                question.title?.apply {
+                    holder.qTitle.text = SpannableStringBuilder(this)
+                }
                 holder.qTitle.hint = "题目内容.."
+                holder.qTitle.addTextChangedListener(object : TextWatcher {
+                    override fun afterTextChanged(p0: Editable?) {
+                        question.title = p0.toString()
+                        QuestionData.updateQuestion(position,question)
+                    }
+
+                    override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                    }
+
+                    override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                    }
+
+                })
                 holder.qNum.text = "${position + 1}."
                 holder.questionContainer.apply {
-                    getChildAt(0).tv_question_number.text = "A."
-                    getChildAt(0).et_question_content.hint = "选项内容"
+                    this.removeAllViews()
+                    //添加选项
+                    while (childCount < question.choices.size) {
+                        addView(createChoiceView(this, context,position))
+                    }
+                    addView(createChildView(this, context, position))
+                    //设置数据
+                    for (choice in question.choices.withIndex()) {
+                        choice.value?.let {
+                            getChildAt(choice.index).et_question_content.apply {
+                                text = SpannableStringBuilder(it)
+                                addTextChangedListener(object : TextWatcher {
+                                    override fun afterTextChanged(p0: Editable?) {
+                                        question.choices[choice.index] = p0.toString()
+                                        QuestionData.updateQuestion(position,question)
+                                    }
 
-                    val view = getChildAt(1)
-                    view.tv_question_number.visibility = View.INVISIBLE
-                    view.iv_question_add.visibility = View.VISIBLE
-                    view.iv_question_sub.setOnClickListener {
-                        var p = indexOfChild(view)
-                        removeView(view)
-                        while (p < childCount) {
-                            val child = getChildAt(p)
-                            child.tv_question_number.text = 'A'.plus(p) + "."
-                            p++
+                                    override fun beforeTextChanged(
+                                        p0: CharSequence?,
+                                        p1: Int,
+                                        p2: Int,
+                                        p3: Int
+                                    ) {
+                                    }
+
+                                    override fun onTextChanged(
+                                        p0: CharSequence?,
+                                        p1: Int,
+                                        p2: Int,
+                                        p3: Int
+                                    ) {
+                                    }
+
+                                })
+                            }
                         }
                     }
-                    view.iv_question_add.setOnClickListener {
-                        view.iv_question_sub.visibility = View.VISIBLE
-                        view.tv_question_number.text = 'A'.plus(childCount - 1) + "."
-                        addView(createChildView(this, context))
-                        it.visibility = View.INVISIBLE
-                        view.tv_question_number.visibility = View.VISIBLE
-                        view.et_question_content.hint = "选项内容..."
-                    }
+//                    val view = getChildAt(1)
+//                    view.tv_question_number.visibility = View.INVISIBLE
+//                    view.iv_question_add.visibility = View.VISIBLE
+//                    view.iv_question_sub.setOnClickListener {
+//                        var p = indexOfChild(view)
+//                        removeView(view)
+//                        while (p < childCount) {
+//                            val child = getChildAt(p)
+//                            child.tv_question_number.text = 'A'.plus(p) + "."
+//                            p++
+//                        }
+//                    }
+//                    view.iv_question_add.setOnClickListener {
+//                        view.iv_question_sub.visibility = View.VISIBLE
+//                        view.tv_question_number.text = 'A'.plus(childCount - 1) + "."
+//                        addView(createChildView(this, context))
+//                        it.visibility = View.INVISIBLE
+//                        view.tv_question_number.visibility = View.VISIBLE
+//                        view.et_question_content.hint = "选项内容..."
+//                    }
 //                    this.addView(createChildView(this, context))
                 }
 
             }
-            Log.d("recycler", "onBindViewHolder position:$position itemId:${holder.itemId} \n$holder")
+            Log.d(
+                "recycler",
+                "onBindViewHolder position:$position itemId:${holder.itemId} \n$holder"
+            )
         }
 
         override fun onCreateViewHolder(parent: ViewGroup): RecyclerView.ViewHolder {
@@ -157,7 +214,7 @@ class MultiItem(val context: Context) : Item, Checkable {
                     view.iv_question_add.setOnClickListener {
                         view.iv_question_sub.visibility = View.VISIBLE
                         view.tv_question_number.text = 'A'.plus(childCount - 1) + "."
-                        addView(createChildView(this, context))
+                        addView(createChildView(this, context, position))
                         it.visibility = View.INVISIBLE
                         view.tv_question_number.visibility = View.VISIBLE
                         view.et_question_content.hint = "选项内容..."
@@ -469,7 +526,7 @@ class SortItem(val context: Context) : Item, Checkable {
                     view.iv_question_add.setOnClickListener {
                         view.iv_question_sub.visibility = View.VISIBLE
                         view.tv_question_number.text = 'A'.plus(childCount - 1) + "."
-                        addView(createChildView(this, context))
+                        addView(createChildView(this, context, position))
                         it.visibility = View.INVISIBLE
                         view.tv_question_number.visibility = View.VISIBLE
                         view.et_question_content.hint = "选项内容..."
@@ -502,9 +559,7 @@ class SortItem(val context: Context) : Item, Checkable {
         val questionContainer: LinearLayout,
         val qNum: TextView,
         val qTitle: EditText
-    ) : QuestionViewHolder(itemView) {
-
-    }
+    ) : QuestionViewHolder(itemView)
 }
 
 enum class QuestionType {
@@ -516,25 +571,65 @@ enum class QuestionType {
     SORT_QUESTION
 }
 
-@Synchronized
-fun createChildView(root: ViewGroup, context: Context): View {
+fun createChoiceView(root: ViewGroup, context: Context, questionNum: Int): View {
     val view =
         LayoutInflater.from(context).inflate(R.layout.layout_question_item, root, false)
-    view.tv_question_number.visibility = View.INVISIBLE
-    view.iv_question_add.visibility = View.VISIBLE
+    view.iv_question_sub.visibility = View.VISIBLE
+    view.tv_question_number.visibility = View.VISIBLE
+    view.iv_question_add.visibility = View.INVISIBLE
+    view.tv_question_number.text = 'A'.plus(root.childCount) + "."
+    view.et_question_content.hint = "选项内容..."
     view.iv_question_sub.setOnClickListener {
         var position = root.indexOfChild(view)
+        QuestionData.removeChoice(questionNum, position)
+
         root.removeView(view)
         while (position < root.childCount) {
             val child = root.getChildAt(position)
             child.tv_question_number.text = 'A'.plus(position) + "."
             position++
         }
+
+
     }
     view.iv_question_add.setOnClickListener {
+        QuestionData.addChoice(questionNum)
+
+        it.visibility = View.INVISIBLE
+        view.tv_question_number.visibility = View.VISIBLE
         view.iv_question_sub.visibility = View.VISIBLE
         view.tv_question_number.text = 'A'.plus(root.childCount - 1) + "."
-        root.addView(createChildView(root, context))
+        root.addView(createChildView(root, context,questionNum))
+        view.et_question_content.hint = "选项内容..."
+    }
+    return view
+}
+
+@Synchronized
+fun createChildView(root: ViewGroup, context: Context, questionNum: Int): View {
+    val view =
+        LayoutInflater.from(context).inflate(R.layout.layout_question_item, root, false)
+    view.tv_question_number.visibility = View.INVISIBLE
+    view.iv_question_add.visibility = View.VISIBLE
+    view.iv_question_sub.setOnClickListener {
+        var position = root.indexOfChild(view)
+        QuestionData.removeChoice(questionNum, position)
+
+        root.removeView(view)
+        while (position < root.childCount) {
+            val child = root.getChildAt(position)
+            child.tv_question_number.text = 'A'.plus(position) + "."
+            position++
+        }
+
+
+    }
+    view.iv_question_add.setOnClickListener {
+        QuestionData.addChoice(questionNum)
+
+        view.iv_question_sub.visibility = View.VISIBLE
+        view.tv_question_number.text = 'A'.plus(root.childCount - 1) + "."
+        root.addView(createChildView(root, context,questionNum))
         it.visibility = View.INVISIBLE
         view.tv_question_number.visibility = View.VISIBLE
         view.et_question_content.hint = "选项内容..."

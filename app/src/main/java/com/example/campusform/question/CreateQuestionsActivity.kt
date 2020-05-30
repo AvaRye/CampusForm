@@ -17,6 +17,7 @@ import org.jetbrains.anko.sdk27.coroutines.onCheckedChange
 
 class CreateQuestionsActivity : AppCompatActivity() {
     private var type = QuestionType.SINGLE_QUESTION
+    private lateinit var itemManager: ItemManager
 
     private val itemSelectedList = arrayListOf<Item>()
     private val arrayList = arrayListOf("单选题", "多选题", "文本题", "十分量表题", "百分量表题", "排序题")
@@ -53,34 +54,33 @@ class CreateQuestionsActivity : AppCompatActivity() {
                 }
             }
         }
-
-        val itemManager = ItemManager()
+        itemManager = ItemManager()
         rv_new_questions.adapter = ItemAdapter(itemManager)
         rv_new_questions.layoutManager = LinearLayoutManager(this)
 
-        itemManager.add(createItem())
+        addQuestion()
         iv_new_add.setOnClickListener {
-            itemManager.add(createItem())
+            addQuestion()
         }
         iv_new_remove.setOnClickListener {
 //            adapter.delete()
         }
         cb_new_all.onCheckedChange { buttonView, isChecked ->
-            if(isChecked){
+            if (isChecked) {
                 var num = 0;
                 val snapshot = itemManager.itemListSnapshot
-                for(item in snapshot){
-                    if(item is Checkable){
+                for (item in snapshot) {
+                    if (item is Checkable) {
 
                         item.check(isChecked)
                     }
                 }
                 itemSelectedList.clear()
                 itemSelectedList.addAll(snapshot)
-            }else{
+            } else {
                 val snapshot = itemManager.itemListSnapshot
-                for(item in snapshot){
-                    if(item is Checkable){
+                for (item in snapshot) {
+                    if (item is Checkable) {
                         item.check(isChecked)
                     }
                 }
@@ -89,5 +89,18 @@ class CreateQuestionsActivity : AppCompatActivity() {
         }
     }
 
-    private fun createItem(): Item = ItemFactory.createItem(type, this)
+    override fun onDestroy() {
+        super.onDestroy()
+        QuestionData.clear()
+    }
+    private fun addQuestion() {
+        QuestionData.addQuestion()
+        when (type) {
+            QuestionType.SINGLE_QUESTION, QuestionType.MULTI_QUESTION, QuestionType.SORT_QUESTION -> {
+                QuestionData.addChoice(itemManager.size)
+            }
+        }
+        itemManager.add(ItemFactory.createItem(type, this))
+
+    }
 }
